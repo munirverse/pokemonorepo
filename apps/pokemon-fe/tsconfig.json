@@ -7,7 +7,7 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
+    "noEmit": false,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
@@ -16,10 +16,9 @@
         "name": "next"
       }
     ],
-    "types": [
-      "jest",
-      "node"
-    ]
+    "types": ["jest", "node"],
+    "composite": true,
+    "declaration": true
   },
   "include": [
     "**/*.ts",
@@ -32,9 +31,18 @@
     ".next/types/**/*.ts"
   ],
   "exclude": [
+    "*.config.js",
     "node_modules",
+    ".next",
     "jest.config.ts",
     "**/*.spec.ts",
-    "**/*.test.ts"
+    "**/*.test.ts",
+    "**/*.stories.ts",
+    "**/*.stories.js"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.storybook.json"
+    }
   ]
 }
