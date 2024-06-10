@@ -34,10 +34,10 @@ export function extractUrlComponents(url: string) {
  * @param options {RequestOptions}
  * @returns {Promise}
  */
-export default async function fetch(
+export default async function fetch<T>(
   url: string,
   options?: RequestOptions
-): Promise<unknown> | never {
+): Promise<T> | never {
   try {
     if (!url) throw new Error('Url must exists');
 
