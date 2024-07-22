@@ -45,6 +45,20 @@
         "targetName": "test"
       },
       "exclude": ["apps/pokemon-be-e2e/**/*"]
+    },
+    {
+      "plugin": "@nx/playwright/plugin",
+      "options": {
+        "targetName": "e2e"
+      }
     }
-  ]
+  ],
+  "generators": {
+    "@nx/next": {
+      "application": {
+        "style": "scss",
+        "linter": "eslint"
+      }
+    }
+  }
 }
