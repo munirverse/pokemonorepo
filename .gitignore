@@ -46,3 +46,6 @@ out
 
 # Docker volumes
 /data
+
+# Environment files 
+.env
