@@ -19,6 +19,29 @@
           "buildTarget": "pokemon-be:build:production"
         }
       }
+    },
+    "migrate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx prisma migrate dev --schema={projectRoot}/prisma/schema.prisma"
+      }
+    },
+    "seed": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx ts-node --project {projectRoot}/tsconfig.json -r tsconfig-paths/register"
+      },
+      "configurations": {
+        "pokemons": {
+          "args": ["{projectRoot}/prisma/seeds/pokemons"]
+        },
+        "details": {
+          "args": ["{projectRoot}/prisma/seeds/details"]
+        },
+        "species": {
+          "args": ["{projectRoot}/prisma/seeds/species"]
+        }
+      }
     }
   }
 }
