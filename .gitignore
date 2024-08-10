@@ -49,3 +49,6 @@ out
 
 # Environment files 
 .env
+
+# Prisma Files
+**/prisma/migrations
