@@ -1,0 +1,47 @@
+{
+  "name": "pokemon-be",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/pokemon-be/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "pokemon-be:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "pokemon-be:build:development"
+        },
+        "production": {
+          "buildTarget": "pokemon-be:build:production"
+        }
+      }
+    },
+    "migrate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx prisma migrate dev --schema={projectRoot}/prisma/schema.prisma"
+      }
+    },
+    "seed": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx ts-node --project {projectRoot}/tsconfig.json -r tsconfig-paths/register"
+      },
+      "configurations": {
+        "pokemons": {
+          "args": ["{projectRoot}/prisma/seeds/pokemons"]
+        },
+        "details": {
+          "args": ["{projectRoot}/prisma/seeds/details"]
+        },
+        "species": {
+          "args": ["{projectRoot}/prisma/seeds/species"]
+        }
+      }
+    }
+  }
+}

@@ -39,3 +39,16 @@ testem.log
 Thumbs.db
 
 .nx/cache
+
+# Next.js
+.next
+out
+
+# Docker volumes
+/data
+
+# Environment files 
+.env
+
+# Prisma Files
+**/prisma/migrations

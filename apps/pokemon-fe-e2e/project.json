@@ -1,0 +1,9 @@
+{
+  "name": "pokemon-fe-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/pokemon-fe-e2e/src",
+  "tags": [],
+  "implicitDependencies": ["pokemon-fe"],
+  "// targets": "to see all targets run: nx show project pokemon-fe-e2e --web",
+  "targets": {}
+}

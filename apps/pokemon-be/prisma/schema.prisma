@@ -1,0 +1,108 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Pokemon {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(100)
+  details Detail?
+  species Species?
+  sprites Sprites[]
+  stats Stats[]
+  types TypeSlots[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("pokemons")
+}
+
+model Detail  {
+  id Int @id @default(autoincrement())
+  pokemon Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemonId Int @unique
+  weight Int @db.Integer
+  height Int @db.Integer
+  cries String @db.Text
+  abilities Json @db.Json
+  moves Json @db.Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("pokemon_details")
+}
+
+model Species {
+  id Int @id @default(autoincrement())
+  pokemon Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemonId Int @unique
+  captureRate Int @db.Integer
+  color String @db.VarChar(50)
+  isBaby Boolean @db.Boolean
+  shape String @db.VarChar(50) 
+  evolveFromSpecies Int @db.Integer
+  varieties Json @db.Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("pokemon_species")
+}
+
+model Sprites {
+  id Int @id @default(autoincrement())
+  category String @db.VarChar(50)
+  viewAngle String @db.VarChar(150)
+  url String @db.Text
+  pokemon Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemonId Int @db.Integer
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("pokemon_sprites")
+}
+
+model Stats {
+  id Int @id @default(autoincrement())
+  pokemon Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemonId Int @db.Integer
+  name String @db.VarChar(50)
+  baseStat Int @db.Integer
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("pokemon_stats")
+}
+
+model Types {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(100)
+  damageRelations Json @db.Json
+  pokemon TypeSlots[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("pokemon_types")
+}
+
+model TypeSlots {
+  id Int @id @default(autoincrement())
+  pokemon Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemonId Int @db.Integer
+  types Types @relation(fields: [typeId], references: [id])
+  typeId Int @db.Integer
+  order Int @db.Integer
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("pokemon_type_slots")
+}
