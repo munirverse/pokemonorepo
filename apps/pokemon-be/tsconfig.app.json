@@ -9,6 +9,11 @@
     "composite": true,
     "declaration": true
   },
-  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
-  "include": ["src/**/*.ts", "prisma/**/*.ts"]
+  "exclude": [
+    "jest.config.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    "../../libs/shared/**/*.spec.ts"
+  ],
+  "include": ["src/**/*.ts", "prisma/**/*.ts", "../../libs/shared/**/*.ts"]
 }
