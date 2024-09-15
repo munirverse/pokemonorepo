@@ -26,18 +26,17 @@ export class PokemonsRepository {
   ): Promise<Pokemon[] | Prisma.PokemonFindManyArgs> {
     // build object filters
     const filters: Prisma.PokemonFindManyArgs = {
-      include: { sprites: true },
+      include: {
+        sprites: true,
+        types: { include: { types: true } },
+        species: true,
+      },
       take: params.limit || DEFAULT_PAGINATION_LIMIT,
       orderBy: { id: 'asc' },
     };
 
     // build where filters
     const where: Prisma.PokemonWhereInput = {
-      sprites: {
-        some: {
-          category: 'default',
-        },
-      },
       species: {},
     };
 
