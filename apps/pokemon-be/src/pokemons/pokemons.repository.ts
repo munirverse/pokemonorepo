@@ -17,13 +17,34 @@ export interface PokemonFindParams {
   onlyFilters?: boolean;
 }
 
+export interface ResultWithPagination<T> {
+  pagination: {
+    pageNumber: number;
+    pageSize: number;
+    pageTotal: number;
+  };
+  data: T;
+}
+
+export interface ResultWithCursor<T> {
+  cursor: {
+    lastId: number;
+    hasNextPage: boolean;
+  };
+  data: T;
+}
+
 @Injectable()
 export class PokemonsRepository {
   constructor(private prismaService: PrismaService) {}
 
   async find(
     params: PokemonFindParams
-  ): Promise<Pokemon[] | Prisma.PokemonFindManyArgs> {
+  ): Promise<
+    | ResultWithPagination<Pokemon[]>
+    | ResultWithCursor<Pokemon[]>
+    | Prisma.PokemonFindManyArgs
+  > {
     // build object filters
     const filters: Prisma.PokemonFindManyArgs = {
       include: {
@@ -89,6 +110,43 @@ export class PokemonsRepository {
     }
 
     // execute prisma service
-    return this.prismaService.pokemon.findMany(filters);
+    const data = await this.prismaService.pokemon.findMany(filters);
+
+    // build result metadata cursor
+    if (params.cursor) {
+      const dataNextCount = await this.prismaService.pokemon.count({
+        where: {
+          ...filters.where,
+          id: {
+            gt: params.lastId + params.limit,
+          },
+        },
+        take: params.limit,
+      });
+
+      return {
+        cursor: {
+          lastId: params.lastId,
+          hasNextPage: dataNextCount > 0 ? true : false,
+        },
+        data,
+      };
+    }
+
+    // build result metadata pagination
+    const dataCount = await this.prismaService.pokemon.count({
+      where: filters.where,
+    });
+
+    return {
+      pagination: {
+        pageNumber: params.page || 1,
+        pageSize: params.limit || DEFAULT_PAGINATION_LIMIT,
+        pageTotal: Math.ceil(
+          dataCount / (params.limit || DEFAULT_PAGINATION_LIMIT)
+        ),
+      },
+      data,
+    };
   }
 }

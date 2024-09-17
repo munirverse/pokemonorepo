@@ -16,7 +16,12 @@ describe('PokemonsRepository', () => {
     })
       .useMocker((token) => {
         if (token === PrismaService) {
-          return { pokemon: { findMany: jest.fn().mockResolvedValue(true) } };
+          return {
+            pokemon: {
+              findMany: jest.fn().mockResolvedValue(true),
+              count: jest.fn().mockResolvedValue(1),
+            },
+          };
         }
 
         if (typeof token === 'function') {
@@ -143,5 +148,6 @@ describe('PokemonsRepository', () => {
 
     // Then
     expect(service.pokemon.findMany).toHaveBeenCalled();
+    expect(service.pokemon.count).toHaveBeenCalled();
   });
 });
