@@ -1,5 +1,9 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { PokemonFindParams, PokemonsRepository } from './pokemons.repository';
+import {
+  PokemonFindParams,
+  PokemonsRepository,
+  ResultWithCursor,
+} from './pokemons.repository';
 import { Prisma } from '@prisma/client';
 
 const POKEMON_CATEGORY = {
@@ -21,6 +25,14 @@ const POKEMON_VIEW_ANGLE = {
   BACK_SHINY: 'back_shiny',
 } as const;
 
+type PokemonFullPayload = Prisma.PokemonGetPayload<{
+  include: {
+    sprites: true;
+    species: true;
+    types: { include: { types: true } };
+  };
+}>;
+
 export type SIMPLE_POKEMON_DATA = {
   id: number;
   name: string;
@@ -36,17 +48,11 @@ export class PokemonsService {
 
   async getPokemons(params: PokemonFindParams) {
     try {
-      const rawPokemons = (await this.repository.find(
-        params
-      )) as Prisma.PokemonGetPayload<{
-        include: {
-          sprites: true;
-          species: true;
-          types: { include: { types: true } };
-        };
-      }>[];
+      const rawData = (await this.repository.find(params)) as ResultWithCursor<
+        PokemonFullPayload[]
+      >;
 
-      const pokemons = rawPokemons.map<SIMPLE_POKEMON_DATA>((pokemon) => ({
+      const data = rawData.data.map<SIMPLE_POKEMON_DATA>((pokemon) => ({
         id: pokemon.id,
         name: pokemon.name,
         types: pokemon.types.map((typeList) => typeList.types.name),
@@ -61,7 +67,10 @@ export class PokemonsService {
           .map((sprite) => sprite.url),
       }));
 
-      return pokemons;
+      return {
+        ...rawData,
+        data: data,
+      };
     } catch (error) {
       throw new InternalServerErrorException('failed to get pokemons', {
         cause: error,

@@ -14,30 +14,36 @@ describe('PokemonsService', () => {
       providers: [PokemonsService],
     })
       .useMocker((token) => {
-        const mockData = [
-          {
-            id: 25,
-            name: 'pikachu',
-            types: [
-              {
-                types: {
-                  name: 'electric',
-                },
-              },
-            ],
-            species: {
-              color: 'yellow',
-              shape: 'quadruped',
-            },
-            sprites: [
-              {
-                category: 'home',
-                viewAngle: 'front_default',
-                url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png',
-              },
-            ],
+        const mockData = {
+          cursor: {
+            lastId: 26,
+            hasNextPage: true,
           },
-        ];
+          data: [
+            {
+              id: 25,
+              name: 'pikachu',
+              types: [
+                {
+                  types: {
+                    name: 'electric',
+                  },
+                },
+              ],
+              species: {
+                color: 'yellow',
+                shape: 'quadruped',
+              },
+              sprites: [
+                {
+                  category: 'home',
+                  viewAngle: 'front_default',
+                  url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png',
+                },
+              ],
+            },
+          ],
+        };
 
         if (token === PokemonsRepository) {
           return { find: jest.fn().mockResolvedValue(mockData) };
@@ -87,6 +93,6 @@ describe('PokemonsService', () => {
     // Then
     expect(repository.find).toHaveBeenCalled();
 
-    expect(data).toMatchObject(expectedResult);
+    expect(data.data).toMatchObject(expectedResult);
   });
 });
