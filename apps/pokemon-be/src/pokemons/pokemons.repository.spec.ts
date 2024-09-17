@@ -58,7 +58,7 @@ describe('PokemonsRepository', () => {
     const expectedWhereFilters: Prisma.PokemonFindManyArgs = {
       where: {
         id: 25,
-        name: 'pikachu',
+        name: { contains: '%pikachu%' },
         types: {
           some: {
             types: {

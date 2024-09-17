@@ -66,7 +66,7 @@ export class PokemonsRepository {
     }
 
     if (params.name) {
-      where.name = params.name;
+      where.name = { contains: `%${params.name}%` };
     }
 
     if (params.types) {
