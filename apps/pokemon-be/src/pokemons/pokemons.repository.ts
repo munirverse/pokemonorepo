@@ -141,7 +141,7 @@ export class PokemonsRepository {
     return {
       pagination: {
         pageNumber: params.page || 1,
-        pageSize: params.limit || DEFAULT_PAGINATION_LIMIT,
+        pageSize: data.length,
         pageTotal: Math.ceil(
           dataCount / (params.limit || DEFAULT_PAGINATION_LIMIT)
         ),
