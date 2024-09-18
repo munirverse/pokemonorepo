@@ -11,7 +11,11 @@ import { PokemonsModule } from '../pokemons/pokemons.module';
     {
       provide: APP_PIPE,
       useFactory: () =>
-        new ValidationPipe({ transform: true, whitelist: true }),
+        new ValidationPipe({
+          transform: true,
+          whitelist: true,
+          forbidNonWhitelisted: true,
+        }),
     },
   ],
 })
