@@ -6,9 +6,44 @@ import {
   IsString,
   Length,
   Min,
+  ValidationOptions,
+  ValidationArguments,
+  registerDecorator,
   ValidateIf,
 } from 'class-validator';
 
+function IsLastIdValid(validationOptions?: ValidationOptions) {
+  return function (object: any, propertyName: string) {
+    registerDecorator({
+      name: 'IsLastIdValid',
+      target: object.constructor,
+      propertyName: propertyName,
+      options: validationOptions,
+      validator: {
+        validate(lastIdValue: any, args: ValidationArguments) {
+          const cursorValue = (args.object as any).cursor;
+
+          if (cursorValue === true) {
+            // When cursor is true, lastId must be provided
+            return lastIdValue != null;
+          } else {
+            // When cursor is false or undefined, lastId must not be provided
+            return lastIdValue == null;
+          }
+        },
+
+        defaultMessage(args: ValidationArguments) {
+          const cursorValue = (args.object as any).cursor;
+          if (cursorValue === true) {
+            return 'lastId must be provided when cursor is true.';
+          } else {
+            return 'lastId must not be provided when cursor is false or not initialized.';
+          }
+        },
+      },
+    });
+  };
+}
 export class FindPokemonDto {
   @IsOptional()
   @Type(() => Number)
@@ -52,12 +87,18 @@ export class FindPokemonDto {
   limit: number;
 
   @IsOptional()
-  @Type(() => Boolean)
-  @Transform(({ value }) => Boolean(value), { toClassOnly: true })
+  @Transform(({ value }) =>
+    value === 'true' || value === 'false' ? value === 'true' : value
+  )
   @IsBoolean()
   cursor: boolean;
 
-  @ValidateIf((item) => item.cursor === true)
+  @ValidateIf(
+    (item) =>
+      item.cursor === true ||
+      (item.lastId !== undefined && item.lastId !== null)
+  )
+  @IsLastIdValid()
   @Type(() => Number)
   @Transform(({ value }) => parseInt(value), { toClassOnly: true })
   @IsInt()
