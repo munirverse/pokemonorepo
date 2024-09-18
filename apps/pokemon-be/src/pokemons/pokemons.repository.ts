@@ -92,6 +92,7 @@ export class PokemonsRepository {
       filters.cursor = {
         id: params.lastId,
       };
+      filters.skip = 1; // skip the cursor
     } else if (params.page) {
       const { page, limit } = params;
 
@@ -118,7 +119,7 @@ export class PokemonsRepository {
         where: {
           ...filters.where,
           id: {
-            gt: params.lastId + params.limit,
+            gt: data?.[data.length - 1]?.id || params.lastId,
           },
         },
         take: params.limit,

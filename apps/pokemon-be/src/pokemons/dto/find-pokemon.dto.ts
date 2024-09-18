@@ -52,6 +52,8 @@ export class FindPokemonDto {
   limit: number;
 
   @IsOptional()
+  @Type(() => Boolean)
+  @Transform(({ value }) => Boolean(value), { toClassOnly: true })
   @IsBoolean()
   cursor: boolean;
 

@@ -112,6 +112,7 @@ describe('PokemonsRepository', () => {
         id: 30,
       },
       take: 10,
+      skip: 1,
     };
 
     // When
@@ -137,6 +138,8 @@ describe('PokemonsRepository', () => {
     expect(filters3.cursor).toMatchObject(expectedPaginationFilters3.cursor);
 
     expect(filters3.take).toEqual(expectedPaginationFilters3.take);
+
+    expect(filters3.skip).toEqual(expectedPaginationFilters3.skip);
   });
 
   it('should called expected service method', async () => {
