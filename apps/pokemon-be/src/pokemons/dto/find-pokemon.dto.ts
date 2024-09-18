@@ -19,7 +19,7 @@ export class FindPokemonDto {
 
   @IsOptional()
   @IsString()
-  @Length(3)
+  @Length(1)
   name: string;
 
   @IsOptional()
