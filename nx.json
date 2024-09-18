@@ -14,7 +14,7 @@
     ],
     "sharedGlobals": []
   },
-  "nxCloudAccessToken": "ZjE1OWNmZmMtNjhjNi00OWE2LTkxYTYtNzE0NWZmYTU1NzE1fHJlYWQtd3JpdGU=",
+  "nxCloudAccessToken": "MDg4MTcxZDUtYjk0MS00NTUyLWFiMGItY2JkZGY2ZDVlMGJhfHJlYWQtd3JpdGU=",
   "plugins": [
     {
       "plugin": "@nx/next/plugin",
@@ -33,32 +33,15 @@
         "previewTargetName": "preview"
       }
     },
-    {
-      "plugin": "@nx/eslint/plugin",
-      "options": {
-        "targetName": "lint"
-      }
-    },
+    { "plugin": "@nx/eslint/plugin", "options": { "targetName": "lint" } },
     {
       "plugin": "@nx/jest/plugin",
-      "options": {
-        "targetName": "test"
-      },
+      "options": { "targetName": "test" },
       "exclude": ["apps/pokemon-be-e2e/**/*"]
     },
-    {
-      "plugin": "@nx/playwright/plugin",
-      "options": {
-        "targetName": "e2e"
-      }
-    }
+    { "plugin": "@nx/playwright/plugin", "options": { "targetName": "e2e" } }
   ],
   "generators": {
-    "@nx/next": {
-      "application": {
-        "style": "scss",
-        "linter": "eslint"
-      }
-    }
+    "@nx/next": { "application": { "style": "scss", "linter": "eslint" } }
   }
 }
