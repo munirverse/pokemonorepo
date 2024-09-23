@@ -1,0 +1,52 @@
+{
+  "migrations": [
+    {
+      "cli": "nx",
+      "version": "19.2.0-beta.2",
+      "description": "Updates the default workspace data directory to .nx/workspace-data",
+      "implementation": "./src/migrations/update-19-2-0/move-workspace-data-directory",
+      "package": "nx",
+      "name": "19-2-0-move-graph-cache-directory"
+    },
+    {
+      "cli": "nx",
+      "version": "19.2.2-beta.0",
+      "description": "Updates the nx wrapper.",
+      "implementation": "./src/migrations/update-17-3-0/update-nxw",
+      "package": "nx",
+      "name": "19-2-2-update-nx-wrapper"
+    },
+    {
+      "version": "19.2.4-beta.0",
+      "description": "Set project name in nx.json explicitly",
+      "implementation": "./src/migrations/update-19-2-4/set-project-name",
+      "x-repair-skip": true,
+      "package": "nx",
+      "name": "19-2-4-set-project-name"
+    },
+    {
+      "cli": "nx",
+      "version": "19.6.3-beta.0",
+      "description": "Migrate proxy config files to match new format from webpack-dev-server v5.",
+      "implementation": "./src/migrations/update-19-6-3/proxy-config",
+      "package": "@nx/webpack",
+      "name": "update-19-6-3-proxy-config"
+    },
+    {
+      "cli": "nx",
+      "version": "19.6.0-beta.0",
+      "description": "Use serve-static or preview for webServerCommand.",
+      "implementation": "./src/migrations/update-19-6-0/use-serve-static-preview-for-command",
+      "package": "@nx/playwright",
+      "name": "19-6-0-use-serve-static-preview-for-command"
+    },
+    {
+      "cli": "nx",
+      "version": "19.6.0-beta.1",
+      "description": "Add inferred ciTargetNames to targetDefaults with dependsOn to ensure dependent application builds are scheduled before atomized tasks.",
+      "implementation": "./src/migrations/update-19-6-0/add-e2e-ci-target-defaults",
+      "package": "@nx/playwright",
+      "name": "update-19-6-0-add-e2e-ci-target-defaults"
+    }
+  ]
+}
