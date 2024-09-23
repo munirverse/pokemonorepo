@@ -8,4 +8,6 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/apps/pokemon-be',
+  collectCoverage: true,
+  coverageReporters: ['text', 'text-summary', 'lcov'],
 };
