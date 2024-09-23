@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PokemonsService, SIMPLE_POKEMON_DATA } from './pokemons.service';
 import { MockFunctionMetadata, ModuleMocker } from 'jest-mock';
 import { PokemonsRepository } from './pokemons.repository';
+import { InternalServerErrorException } from '@nestjs/common';
 
 const moduleMocker = new ModuleMocker(global);
 
@@ -94,5 +95,27 @@ describe('PokemonsService', () => {
     expect(repository.find).toHaveBeenCalled();
 
     expect(data.data).toMatchObject(expectedResult);
+  });
+
+  it('should throw expected error', async () => {
+    // Given
+    const expectedErrorCause = new Error('Repository Failed');
+
+    (repository.find as jest.Mock).mockRejectedValue(expectedErrorCause);
+
+    // When & Then
+    try {
+      await service.getPokemons({});
+    } catch (error) {
+      expect(repository.find).toHaveBeenCalled();
+
+      expect(error instanceof InternalServerErrorException).toBe(true);
+
+      expect(error.getResponse()).toMatchObject({
+        error: expectedErrorCause.message,
+        message: 'failed to get pokemons',
+        statusCode: 500,
+      });
+    }
   });
 });
