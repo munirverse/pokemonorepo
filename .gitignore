@@ -38,7 +38,9 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# Nx config
 .nx/cache
+.nx/workspace-data
 
 # Next.js
 .next
