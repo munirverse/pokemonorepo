@@ -146,11 +146,19 @@ describe('PokemonsRepository', () => {
     // Given
     const params: PokemonFindParams = {};
 
+    const params2: PokemonFindParams = {
+      cursor: true,
+      lastId: 30,
+    };
+
     // When
     await provider.find(params);
 
+    await provider.find(params2);
+
     // Then
-    expect(service.pokemon.findMany).toHaveBeenCalled();
-    expect(service.pokemon.count).toHaveBeenCalled();
+    expect(service.pokemon.findMany).toHaveBeenCalledTimes(2);
+
+    expect(service.pokemon.count).toHaveBeenCalledTimes(2);
   });
 });
