@@ -11,6 +11,7 @@ import {
   registerDecorator,
   ValidateIf,
 } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 function IsLastIdValid(validationOptions?: ValidationOptions) {
   return function (object: any, propertyName: string) {
@@ -50,26 +51,50 @@ export class FindPokemonDto {
   @Transform(({ value }) => parseInt(value), { toClassOnly: true })
   @IsInt()
   @Min(1)
+  @ApiProperty({
+    required: false,
+    description: 'pokemon id (ex: 1, 2, .etc)',
+    minimum: 1,
+  })
   id: number;
 
   @IsOptional()
   @IsString()
   @Length(1)
+  @ApiProperty({
+    required: false,
+    description: 'pokemon name (ex: pikachu, bulbasaur, .etc)',
+  })
   name: string;
 
   @IsOptional()
   @IsString()
   @Length(3)
+  @ApiProperty({
+    required: false,
+    description: 'pokemon type (ex: electric, grass, .etc)',
+    minimum: 3,
+  })
   types: string;
 
   @IsOptional()
   @IsString()
   @Length(3)
+  @ApiProperty({
+    required: false,
+    description: 'pokemon color (ex: yellow, green, .etc)',
+    minimum: 3,
+  })
   color: string;
 
   @IsOptional()
   @IsString()
   @Length(3)
+  @ApiProperty({
+    required: false,
+    description: 'pokemon shape (ex: quadruped, armor, .etc',
+    minimum: 3,
+  })
   shape: string;
 
   @IsOptional()
@@ -77,6 +102,7 @@ export class FindPokemonDto {
   @Transform(({ value }) => parseInt(value), { toClassOnly: true })
   @IsInt()
   @Min(1)
+  @ApiProperty({ required: false, description: 'number of page', minimum: 1 })
   page: number;
 
   @IsOptional()
@@ -84,6 +110,7 @@ export class FindPokemonDto {
   @Transform(({ value }) => parseInt(value), { toClassOnly: true })
   @IsInt()
   @Min(1)
+  @ApiProperty({ required: false, description: 'size per page', minimum: 1 })
   limit: number;
 
   @IsOptional()
@@ -91,6 +118,10 @@ export class FindPokemonDto {
     value === 'true' || value === 'false' ? value === 'true' : value
   )
   @IsBoolean()
+  @ApiProperty({
+    required: false,
+    description: 'enable pagination cursor mode',
+  })
   cursor: boolean;
 
   @ValidateIf(
@@ -103,5 +134,10 @@ export class FindPokemonDto {
   @Transform(({ value }) => parseInt(value), { toClassOnly: true })
   @IsInt()
   @Min(2)
+  @ApiProperty({
+    required: false,
+    description: 'cursor id (required if cursor mode was on)',
+    minimum: 2,
+  })
   lastId: number;
 }
