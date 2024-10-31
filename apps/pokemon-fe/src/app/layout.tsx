@@ -1,5 +1,7 @@
-import './global.scss';
 import { Manrope } from 'next/font/google';
+import { createTheme, MantineProvider, ColorSchemeScript } from '@mantine/core';
+
+import './global.scss';
 
 const manrope = Manrope({ subsets: ['latin'] });
 
@@ -8,6 +10,8 @@ export const metadata = {
   description: 'A full-stack portfolio project using Nx, NestJS, and Next.js',
 };
 
+const theme = createTheme({});
+
 export default function RootLayout({
   children,
 }: {
@@ -15,7 +19,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={manrope.className}>
-      <body>{children}</body>
+      <head>
+        <ColorSchemeScript
+          defaultColorScheme={'light'}
+          forceColorScheme={'light'}
+        />
+      </head>
+      <body>
+        <MantineProvider theme={theme}>{children}</MantineProvider>
+      </body>
     </html>
   );
 }
