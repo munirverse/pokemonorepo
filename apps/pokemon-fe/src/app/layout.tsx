@@ -1,6 +1,7 @@
 import { Manrope } from 'next/font/google';
 import { createTheme, MantineProvider, ColorSchemeScript } from '@mantine/core';
 
+import { StoreProvider } from './StoreProvider';
 import './global.scss';
 
 const manrope = Manrope({ subsets: ['latin'] });
@@ -26,7 +27,9 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        <MantineProvider theme={theme}>
+          <StoreProvider>{children}</StoreProvider>
+        </MantineProvider>
       </body>
     </html>
   );
