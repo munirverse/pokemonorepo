@@ -1,3 +1,17 @@
+# [0.4.0](https://github.com/munirapp/pokemonorepo/compare/v0.3.0...v0.4.0) (2024-11-02)
+
+
+### Bug Fixes
+
+* implement search state logic in navbar component ([91f9810](https://github.com/munirapp/pokemonorepo/commit/91f98107983b1621793c163134ee50f717d8a5bc))
+* implement search state prop drilling in mobile and desktop component ([c082a2e](https://github.com/munirapp/pokemonorepo/commit/c082a2ed78c2a5d5a5b1e6689369d937f0559210))
+
+
+### Features
+
+* init redux store configuration ([9746e7c](https://github.com/munirapp/pokemonorepo/commit/9746e7cec283e57287f61a559c839bcb145effba))
+* init search state feature ([fbcee58](https://github.com/munirapp/pokemonorepo/commit/fbcee581ac1e4ba919b8c12f36f73719015b438c))
+
 # [0.3.0](https://github.com/munirapp/pokemonorepo/compare/v0.2.0...v0.3.0) (2024-10-31)
 
 
