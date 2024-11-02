@@ -1,11 +1,28 @@
-import { Group } from '@mantine/core';
+import { Group, Input } from '@mantine/core';
 
 import './MobileNavbar.scss';
 
-export const MobileNavbar = () => {
+type MobileNavbarProps = {
+  queryText: string;
+  onSetQueryText: (x: any) => any;
+};
+
+export const MobileNavbar = ({
+  queryText,
+  onSetQueryText,
+}: MobileNavbarProps) => {
   return (
     <nav className="navbar-mobile">
-      <Group></Group>
+      <Group justify={'space-between'}>
+        <section>
+          <Input
+            placeholder="Search pokemon name"
+            value={queryText}
+            onChange={onSetQueryText}
+          />
+        </section>
+        <section>{queryText}</section>
+      </Group>
     </nav>
   );
 };

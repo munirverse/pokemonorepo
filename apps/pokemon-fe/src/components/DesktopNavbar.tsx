@@ -9,18 +9,28 @@ import {
 
 import './DesktopNavbar.scss';
 
-export const DekstopNavbar = () => {
+type DekstopNavbarProps = {
+  queryText: string;
+  onSetQueryText: (x: any) => any;
+};
+
+export const DekstopNavbar = ({
+  queryText,
+  onSetQueryText,
+}: DekstopNavbarProps) => {
   return (
     <nav className="navbar-desktop">
       <Group justify={'space-between'} className="navbar-wrapper">
         <section>
           <div className="image-wrapper">
-            <Image alt="logo" src={'/logo.png'} fill />
+            <Image alt="logo" src={'/logo.png'} sizes="200px" priority fill />
           </div>
         </section>
         <section style={{ flex: 1 }}>
           <Input
             placeholder="Search pokemon name"
+            value={queryText}
+            onChange={onSetQueryText}
             leftSection={<IconSearch size={16} />}
           />
         </section>
