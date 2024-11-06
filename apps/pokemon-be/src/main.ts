@@ -19,6 +19,11 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-specs', app, document);
+  app.enableCors({
+    origin: process.env.FE_URL,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    optionsSuccessStatus: 200,
+  });
   const port = process.env.PORT || 3000;
   await app.listen(port);
   Logger.log(
