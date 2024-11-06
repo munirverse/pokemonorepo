@@ -3,9 +3,9 @@ import type { AppDispatch, RootState } from '../../store';
 import {
   activateSearchMode,
   deactivateSearchMode,
-  SearchState,
   setQueryText,
 } from './searchSlice';
+import type { SearchState } from './searchType';
 
 export const useSearchSelector = () =>
   useSelector.withTypes<RootState>()((state) => state.search);

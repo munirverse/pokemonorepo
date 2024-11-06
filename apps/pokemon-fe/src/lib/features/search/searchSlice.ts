@@ -1,11 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-export type SearchState = {
-  active: boolean;
-  queryText: string;
-  loading: boolean;
-  history: string[];
-};
+import type { SearchState } from './searchType';
 
 const initialState: SearchState = {
   active: false,
