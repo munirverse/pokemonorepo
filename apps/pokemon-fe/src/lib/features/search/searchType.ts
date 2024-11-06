@@ -1,7 +1,6 @@
 export type SearchState = {
-  active: boolean;
   queryText: string;
-  loading: boolean;
+  queryParams: string;
   history: string[];
 };
 
