@@ -1,3 +1,16 @@
+# [0.5.0](https://github.com/munirapp/pokemonorepo/compare/v0.4.0...v0.5.0) (2024-11-06)
+
+
+### Bug Fixes
+
+* **pokemon-fe:** setup get pokemon api query ([78360f1](https://github.com/munirapp/pokemonorepo/commit/78360f12a9737112ee9ae028a97440d4d45f0da9))
+* separate state types ([7d18dd7](https://github.com/munirapp/pokemonorepo/commit/7d18dd7f22a6e4b53fb773bf595a6d03ddcd4a9f))
+
+
+### Features
+
+* **pokemon-be:** setup cors ([baf0b98](https://github.com/munirapp/pokemonorepo/commit/baf0b987e7f19c261d97abfa4b441a17d353f221))
+
 # [0.4.0](https://github.com/munirapp/pokemonorepo/compare/v0.3.0...v0.4.0) (2024-11-02)
 
 
