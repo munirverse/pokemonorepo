@@ -1,6 +1,5 @@
 'use client';
 
-import qs from 'querystring';
 import { useDebouncedCallback, useMediaQuery } from '@mantine/hooks';
 
 import { DekstopNavbar } from './DesktopNavbar';
@@ -29,15 +28,22 @@ export const Navbar = () => {
     handleSetQueryParams(e.target.value);
   };
 
+  const handleClearQueryText = () => {
+    searchDispatch.setQueryText('');
+    handleSetQueryParams('');
+  };
+
   return isMobile ? (
     <MobileNavbar
       queryText={search.queryText}
       onSetQueryText={handleSetQueryText}
+      onClearQueryText={handleClearQueryText}
     />
   ) : (
     <DekstopNavbar
       queryText={search.queryText}
       onSetQueryText={handleSetQueryText}
+      onClearQueryText={handleClearQueryText}
     />
   );
 };
