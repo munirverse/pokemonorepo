@@ -1,4 +1,5 @@
 export type SearchState = {
+  active: boolean;
   queryText: string;
   queryParams: string;
   history: string[];
