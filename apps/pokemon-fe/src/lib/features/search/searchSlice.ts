@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { SearchState } from './searchType';
 
 const initialState: SearchState = {
+  active: false,
   queryText: '',
   queryParams: '',
   history: [],
@@ -16,6 +17,7 @@ const searchSlice = createSlice({
     },
     setQueryParams(state, action: PayloadAction<SearchState['queryParams']>) {
       state.queryParams = action.payload;
+      state.history.push(action.payload);
     },
   },
 });
