@@ -10,17 +10,7 @@ import {
 import './DesktopNavbar.scss';
 import { SearchInput } from './SearchInput';
 
-type DekstopNavbarProps = {
-  queryText: string;
-  onSetQueryText: (x: any) => any;
-  onClearQueryText: () => any;
-};
-
-export const DekstopNavbar = ({
-  queryText,
-  onSetQueryText,
-  onClearQueryText,
-}: DekstopNavbarProps) => {
+export const DekstopNavbar = () => {
   return (
     <nav className="navbar-desktop">
       <Group justify={'space-between'} className="navbar-wrapper">
@@ -32,9 +22,6 @@ export const DekstopNavbar = ({
         <section style={{ flex: 1 }}>
           <SearchInput
             placeholder="Search pokemon name"
-            queryText={queryText}
-            onClearQueryText={onClearQueryText}
-            onSetQueryText={onSetQueryText}
             leftSection={<IconSearch size={16} />}
           />
         </section>
