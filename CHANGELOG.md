@@ -1,3 +1,23 @@
+# [0.6.0](https://github.com/munirapp/pokemonorepo/compare/v0.5.0...v0.6.0) (2024-11-11)
+
+
+### Bug Fixes
+
+* add transform response in getPokemon endpoints ([db38004](https://github.com/munirapp/pokemonorepo/commit/db38004f1098741ce6a28a8bfbe0cd790a80ebb4))
+* **pokemon-fe:** add active fields in search state ([397317c](https://github.com/munirapp/pokemonorepo/commit/397317c3021c13f13f559f589730cb8043cdfdde))
+* **pokemon-fe:** add search mode state logic ([5c6a0e0](https://github.com/munirapp/pokemonorepo/commit/5c6a0e02627e2c025a0dbc8e4efc36a074b0787b))
+* **pokemon-fe:** improve style and search behaviour between page ([9a0b606](https://github.com/munirapp/pokemonorepo/commit/9a0b606125076dcac9ef5b1f2f4a0acc19576f6a))
+* **pokemon-fe:** init base get pokemon query ([94dc596](https://github.com/munirapp/pokemonorepo/commit/94dc59671531bddbcc51d8a58854eee2610a5947))
+* **pokemon-fe:** simplify search input state logic ([1071a2b](https://github.com/munirapp/pokemonorepo/commit/1071a2bf14f319f3ee399799fc5f5d83b0d2ab59))
+* separate search input component ([3ee32d2](https://github.com/munirapp/pokemonorepo/commit/3ee32d269940b736a40a3d2ad647054cbc2892a8))
+
+
+### Features
+
+* **pokemon-fe:** add hero component ([45bf370](https://github.com/munirapp/pokemonorepo/commit/45bf3700518c258f42bc745f9b72ce6cd73c4183))
+* **pokemon-fe:** add search pages ([c469d56](https://github.com/munirapp/pokemonorepo/commit/c469d5656673deb444e2bf7326699286751bd307))
+* **pokemon-fe:** init content container component ([c1ed563](https://github.com/munirapp/pokemonorepo/commit/c1ed563cb7bb60e20bf5001cf0a6228624fffc79))
+
 # [0.5.0](https://github.com/munirapp/pokemonorepo/compare/v0.4.0...v0.5.0) (2024-11-06)
 
 
