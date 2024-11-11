@@ -5,17 +5,23 @@ import { Navbar } from '../components/Navbar';
 import './page.scss';
 import {
   useGetPokemonQuery,
+  useSearchDispatch,
   useSearchSelector,
 } from '../lib/features/search/searchHook';
 import { GetPokemonPayload } from '../lib/features/search/searchType';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { ContentContainer } from '../components/ContentContainer';
+import { Hero } from './Hero';
 
 export default function Index() {
   // selector
   const search = useSearchSelector();
 
   const router = useRouter();
+
+  // dispatch
+  const searchDispatch = useSearchDispatch();
 
   // query api
   const baseGetPokemonqQuery: GetPokemonPayload = {
@@ -32,6 +38,10 @@ export default function Index() {
 
   // use effect
   useEffect(() => {
+    if (search.active) {
+      searchDispatch.deactiveSearchMode();
+    }
+
     if (search.queryParams) {
       router.push(`/search?q=${search.queryParams}`);
     }
@@ -40,8 +50,11 @@ export default function Index() {
   return (
     <main>
       <Navbar />
-      {isGetPokemonLoading && <pre>Loading...</pre>}
-      {isGetPokemonSuccess && <pre>{JSON.stringify(pokemons)}</pre>}
+      <ContentContainer>
+        <Hero />
+        {isGetPokemonLoading && <pre>Loading...</pre>}
+        {isGetPokemonSuccess && <pre>{JSON.stringify(pokemons)}</pre>}
+      </ContentContainer>
     </main>
   );
 }

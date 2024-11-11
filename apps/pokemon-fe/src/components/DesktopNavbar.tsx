@@ -1,5 +1,8 @@
+'use client';
+
 import Image from 'next/image';
-import { Select, Button, Group, Text } from '@mantine/core';
+import Link from 'next/link';
+import { Select, Button, Group, Text, Container } from '@mantine/core';
 import {
   IconSearch,
   IconMessageQuestion,
@@ -9,51 +12,87 @@ import {
 
 import './DesktopNavbar.scss';
 import { SearchInput } from './SearchInput';
+import {
+  useSearchDispatch,
+  useSearchSelector,
+} from '../lib/features/search/searchHook';
 
 export const DekstopNavbar = () => {
+  // selector
+  const search = useSearchSelector();
+
+  // dispatch
+  const searchDispatch = useSearchDispatch();
+
+  // handler
+  const handleDisplayNone = (condition: boolean) => ({
+    display: !condition ? 'none' : undefined,
+  });
+
+  const handleHomeClick = () => {
+    searchDispatch.setQueryText('');
+    searchDispatch.setQueryParams('');
+    searchDispatch.deactiveSearchMode();
+  };
+
   return (
     <nav className="navbar-desktop">
-      <Group justify={'space-between'} className="navbar-wrapper">
-        <section>
-          <div className="image-wrapper">
-            <Image alt="logo" src={'/logo.png'} sizes="200px" priority fill />
-          </div>
-        </section>
-        <section style={{ flex: 1 }}>
-          <SearchInput
-            placeholder="Search pokemon name"
-            leftSection={<IconSearch size={16} />}
-          />
-        </section>
-        <section>
-          <Group>
-            <a href="/">
-              <Group gap={'xs'}>
-                <IconMessageQuestion size={16} />
-                <Text>About</Text>
-              </Group>
-            </a>
-            <a href="/">
-              <Group gap={'xs'}>
-                <IconFile3d size={16} />
-                <Text>API Documentation</Text>
-              </Group>
-            </a>
-            <Button
-              leftSection={<IconAdjustmentsHorizontal size={16} />}
-              disabled
-            >
-              Settings
-            </Button>
-            <Select
-              data={['🇬🇧 (EN)', '🇯🇵 (JP)']}
-              value={'🇬🇧 (EN)'}
-              checkIconPosition={'right'}
-              className="lang-select"
-            ></Select>
-          </Group>
-        </section>
-      </Group>
+      <Container size={'lg'}>
+        <Group justify={'space-between'} className="navbar-wrapper">
+          <section>
+            <Link href={'/'} onClick={handleHomeClick}>
+              <div className="image-wrapper">
+                <Image
+                  alt="logo"
+                  src={'/logo.png'}
+                  sizes="200px"
+                  priority
+                  fill
+                  style={{ ...handleDisplayNone(search.active) }}
+                />
+              </div>
+            </Link>
+          </section>
+          <section style={{ flex: 1 }}>
+            <SearchInput
+              placeholder="Search pokemon name"
+              leftSection={<IconSearch size={16} />}
+              style={{ ...handleDisplayNone(search.active) }}
+            />
+          </section>
+          <section>
+            <Group>
+              <a href="/">
+                <Group gap={'xs'}>
+                  <IconMessageQuestion size={16} />
+                  <Text size="xs">About</Text>
+                </Group>
+              </a>
+              <a href="/">
+                <Group gap={'xs'}>
+                  <IconFile3d size={16} />
+                  <Text size="xs">API Documentation</Text>
+                </Group>
+              </a>
+              <Button
+                size="xs"
+                leftSection={<IconAdjustmentsHorizontal size={16} />}
+                disabled
+                style={{ ...handleDisplayNone(false) }}
+              >
+                Settings
+              </Button>
+              <Select
+                data={['🇬🇧 (EN)', '🇯🇵 (JP)']}
+                value={'🇬🇧 (EN)'}
+                checkIconPosition={'right'}
+                className="lang-select"
+                size="xs"
+              ></Select>
+            </Group>
+          </section>
+        </Group>
+      </Container>
     </nav>
   );
 };
