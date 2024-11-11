@@ -5,8 +5,10 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
 import { Navbar } from '../../components/Navbar';
+import { ContentContainer } from '../../components/ContentContainer';
 import {
   useGetPokemonQuery,
+  useSearchDispatch,
   useSearchSelector,
 } from '../../lib/features/search/searchHook';
 import { GetPokemonPayload } from '../../lib/features/search/searchType';
@@ -18,6 +20,9 @@ export default function SearchIndex() {
   const router = useRouter();
 
   const search = useSearchSelector();
+
+  // dispatch
+  const searchDispatch = useSearchDispatch();
 
   // query api
   const basePokemonQuery: GetPokemonPayload = {
@@ -44,13 +49,19 @@ export default function SearchIndex() {
     if (urlQuery.get('q') !== search.queryParams) {
       router.push(`/search?q=${search.queryParams}`);
     }
+
+    if (!search.active) {
+      searchDispatch.activateSearchMode();
+    }
   }, [urlQuery, search]);
 
   return (
     <main>
       <Navbar />
-      {urlQuery.get('q')}
-      {JSON.stringify(pokemons)}
+      <ContentContainer>
+        {urlQuery.get('q')}
+        {JSON.stringify(pokemons)}
+      </ContentContainer>
     </main>
   );
 }

@@ -32,8 +32,13 @@ export const SearchInput = ({ placeholder, ...props }: SearchInputProps) => {
     }
   };
 
+  const handleDisplayNone = (condition: boolean) => ({
+    display: condition ? undefined : 'none',
+  });
+
   return (
     <Input
+      size="xs"
       placeholder={placeholder}
       value={search.queryText}
       onChange={handleSetInput}
@@ -43,7 +48,7 @@ export const SearchInput = ({ placeholder, ...props }: SearchInputProps) => {
         <CloseButton
           aria-label="Clear input"
           onClick={handleClearInput}
-          style={{ display: search.queryText ? undefined : 'none' }}
+          style={{ ...handleDisplayNone(search.queryText !== '') }}
         />
       }
       {...props}
