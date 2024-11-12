@@ -18,6 +18,15 @@ import {
 } from '../lib/features/search/searchHook';
 
 export const DekstopNavbar = () => {
+  const links = [
+    { link: '/', title: 'About', icon: <IconMessageQuestion size={16} /> },
+    {
+      link: '/',
+      title: 'API Documentation',
+      icon: <IconFile3d size={16} />,
+    },
+  ];
+
   // selector
   const search = useSearchSelector();
 
@@ -62,18 +71,14 @@ export const DekstopNavbar = () => {
           </section>
           <section>
             <Group>
-              <a href="/">
-                <Group gap={'xs'}>
-                  <IconMessageQuestion size={16} />
-                  <Text size="xs">About</Text>
-                </Group>
-              </a>
-              <a href="/">
-                <Group gap={'xs'}>
-                  <IconFile3d size={16} />
-                  <Text size="xs">API Documentation</Text>
-                </Group>
-              </a>
+              {links.map(({ link, icon, title }) => (
+                <Link href={link}>
+                  <Group gap={'xs'}>
+                    {icon}
+                    <Text size="xs">{title}</Text>
+                  </Group>
+                </Link>
+              ))}
               <Button
                 size="xs"
                 leftSection={<IconAdjustmentsHorizontal size={16} />}
