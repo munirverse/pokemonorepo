@@ -72,7 +72,7 @@ export const DekstopNavbar = () => {
           <section>
             <Group>
               {links.map(({ link, icon, title }) => (
-                <Link href={link}>
+                <Link key={title} href={link}>
                   <Group gap={'xs'}>
                     {icon}
                     <Text size="xs">{title}</Text>
