@@ -2,7 +2,7 @@
 
 import qs from 'querystring';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 
 import { Navbar } from '../../components/Navbar';
 import { ContentContainer } from '../../components/ContentContainer';
@@ -13,7 +13,7 @@ import {
 } from '../../lib/features/search/searchHook';
 import { GetPokemonPayload } from '../../lib/features/search/searchType';
 
-export default function SearchIndex() {
+function SearchIndex() {
   // selector
   const urlQuery = useSearchParams();
 
@@ -53,7 +53,7 @@ export default function SearchIndex() {
     if (!search.active) {
       searchDispatch.activateSearchMode();
     }
-  }, [urlQuery, search]);
+  }, [urlQuery, search, router, searchDispatch]);
 
   return (
     <main>
@@ -63,5 +63,13 @@ export default function SearchIndex() {
         {JSON.stringify(pokemons)}
       </ContentContainer>
     </main>
+  );
+}
+
+export default function Search() {
+  return (
+    <Suspense>
+      <SearchIndex />
+    </Suspense>
   );
 }
