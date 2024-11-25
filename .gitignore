@@ -54,3 +54,5 @@ out
 
 # Prisma Files
 **/prisma/migrations
+
+storybook-static
