@@ -5,7 +5,8 @@
   },
   "exclude": ["src/components/**/*.spec.ts", "src/components/**/*.test.ts"],
   "include": [
-    "src/app/StoreProvider.tsx",
+    "src/app/**/*.tsx",
+    "src/lib/**/*.ts",
     "src/components/**/*.tsx",
     "src/components/**/*.stories.ts",
     "src/components/**/*.stories.js",
