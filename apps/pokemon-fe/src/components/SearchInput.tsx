@@ -6,7 +6,7 @@ import {
   useSearchSelector,
 } from '../lib/features/search/searchHook';
 
-type SearchInputProps = {
+export type SearchInputProps = {
   placeholder: string;
 } & InputProps;
 
