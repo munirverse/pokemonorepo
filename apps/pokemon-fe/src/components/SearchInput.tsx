@@ -8,9 +8,14 @@ import {
 
 export type SearchInputProps = {
   placeholder: string;
+  size?: InputProps['size'];
 } & InputProps;
 
-export const SearchInput = ({ placeholder, ...props }: SearchInputProps) => {
+export const SearchInput = ({
+  placeholder,
+  size,
+  ...props
+}: SearchInputProps) => {
   // selector
   const search = useSearchSelector();
 
@@ -38,7 +43,7 @@ export const SearchInput = ({ placeholder, ...props }: SearchInputProps) => {
 
   return (
     <Input
-      size="xs"
+      size={size || 'xs'}
       placeholder={placeholder}
       value={search.queryText}
       onChange={handleSetInput}

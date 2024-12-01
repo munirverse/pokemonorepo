@@ -1,6 +1,7 @@
 'use client';
 
 import qs from 'querystring';
+import { Grid } from '@mantine/core';
 import { Navbar } from '../components/Navbar';
 import './page.scss';
 import {
@@ -13,6 +14,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ContentContainer } from '../components/ContentContainer';
 import { Hero } from './Hero';
+import { PokemonCard } from '../components/PokemonCard';
 
 export default function Index() {
   // selector
@@ -45,7 +47,7 @@ export default function Index() {
     if (search.queryParams) {
       router.push(`/search?q=${search.queryParams}`);
     }
-  }, [search]);
+  }, [search, router, searchDispatch]);
 
   return (
     <main>
@@ -53,7 +55,21 @@ export default function Index() {
       <ContentContainer>
         <Hero />
         {isGetPokemonLoading && <pre>Loading...</pre>}
-        {isGetPokemonSuccess && <pre>{JSON.stringify(pokemons)}</pre>}
+        {isGetPokemonSuccess && (
+          <Grid mt={'lg'}>
+            {pokemons.map((pokemon) => (
+              <Grid.Col key={pokemon.id} span={{ base: 6, md: 3, lg: 2 }}>
+                <PokemonCard
+                  urlImage={pokemon.icon[0]}
+                  title={pokemon.name}
+                  color={pokemon.color}
+                  type={pokemon.types[0]}
+                  shape={pokemon.shape}
+                />
+              </Grid.Col>
+            ))}
+          </Grid>
+        )}
       </ContentContainer>
     </main>
   );
