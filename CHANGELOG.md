@@ -1,3 +1,19 @@
+# [0.7.0](https://github.com/munirapp/pokemonorepo/compare/v0.6.0...v0.7.0) (2024-12-01)
+
+
+### Bug Fixes
+
+* add keyprops in navbar list component ([a925e2b](https://github.com/munirapp/pokemonorepo/commit/a925e2ba45dbcf1ba9dd9f502bd76aa0fb7011f7))
+* add missing suspsense boundary in search pages ([40c3888](https://github.com/munirapp/pokemonorepo/commit/40c388813582ac2ecaf1d63c377364167dd1dc7b))
+* **pokemon-fe:** make navbar links menu more dynamic ([cabf060](https://github.com/munirapp/pokemonorepo/commit/cabf0606f5497c0f85ae05b7c8523edbba720bf7))
+
+
+### Features
+
+* add searchinput storybook ([5b58aeb](https://github.com/munirapp/pokemonorepo/commit/5b58aebd521cef517356ae622396e22a96f84748))
+* init pokemon card component ([68037c1](https://github.com/munirapp/pokemonorepo/commit/68037c11aff26287f9d63fe5cbe1c9b64b595657))
+* init storybook ([7d4c71c](https://github.com/munirapp/pokemonorepo/commit/7d4c71c341b559e6e8ed3de37fc5207d59255ff1))
+
 # [0.6.0](https://github.com/munirapp/pokemonorepo/compare/v0.5.0...v0.6.0) (2024-11-11)
 
 
