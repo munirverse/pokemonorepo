@@ -18,6 +18,7 @@ export const Hero = () => {
           priority
         />
         <SearchInput
+          size={'sm'}
           placeholder="Search pokemon name"
           miw={400}
           leftSection={<IconSearch size={16} />}
