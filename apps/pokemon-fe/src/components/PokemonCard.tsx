@@ -25,11 +25,11 @@ export function PokemonCard({
           {title}
         </Text>
         <Group gap={'xs'} mt={'xs'}>
-          <Badge color={color} size={'xs'}>
+          <Badge color={color === 'white' ? 'gray' : color} size={'xs'}>
             {type}
           </Badge>
           <Badge color={'gray'} size={'xs'}>
-            {shape}
+            {shape || 'unknown'}
           </Badge>
         </Group>
       </List>

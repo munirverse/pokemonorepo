@@ -58,7 +58,7 @@ export default function Index() {
         {isGetPokemonSuccess && (
           <Grid mt={'lg'}>
             {pokemons.map((pokemon) => (
-              <Grid.Col key={pokemon.id} span={{ base: 6, md: 3, lg: 2 }}>
+              <Grid.Col key={pokemon.id} span={{ base: 6, md: 3, lg: 3 }}>
                 <PokemonCard
                   urlImage={pokemon.icon[0]}
                   title={pokemon.name}
