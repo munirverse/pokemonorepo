@@ -30,7 +30,7 @@ function SearchIndex() {
   const basePokemonQuery: GetPokemonPayload = {
     name: urlQuery.get('q') || '',
     page: 1,
-    limit: 10,
+    limit: 12,
   };
 
   const {

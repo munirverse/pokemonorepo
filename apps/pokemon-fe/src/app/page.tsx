@@ -28,7 +28,7 @@ export default function Index() {
   // query api
   const baseGetPokemonqQuery: GetPokemonPayload = {
     page: 1,
-    limit: 10,
+    limit: 12,
   };
 
   const {
