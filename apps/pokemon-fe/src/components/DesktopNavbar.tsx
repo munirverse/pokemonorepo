@@ -87,13 +87,13 @@ export const DekstopNavbar = () => {
               >
                 Settings
               </Button>
-              <Select
+              {/* <Select
                 data={['🇬🇧 (EN)', '🇯🇵 (JP)']}
                 value={'🇬🇧 (EN)'}
                 checkIconPosition={'right'}
                 className="lang-select"
                 size="xs"
-              ></Select>
+              ></Select> */}
             </Group>
           </section>
         </Group>

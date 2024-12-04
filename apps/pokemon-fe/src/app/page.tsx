@@ -1,7 +1,6 @@
 'use client';
 
 import qs from 'querystring';
-import { Grid } from '@mantine/core';
 import { Navbar } from '../components/Navbar';
 import './page.scss';
 import {
@@ -14,7 +13,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ContentContainer } from '../components/ContentContainer';
 import { Hero } from './Hero';
-import { PokemonCard } from '../components/PokemonCard';
+import { PokemonCardWrapper } from '../components/PokemonCardWrapper';
 
 export default function Index() {
   // selector
@@ -28,7 +27,7 @@ export default function Index() {
   // query api
   const baseGetPokemonqQuery: GetPokemonPayload = {
     page: 1,
-    limit: 12,
+    limit: 8,
   };
 
   const {
@@ -55,21 +54,7 @@ export default function Index() {
       <ContentContainer>
         <Hero />
         {isGetPokemonLoading && <pre>Loading...</pre>}
-        {isGetPokemonSuccess && (
-          <Grid mt={'lg'}>
-            {pokemons.map((pokemon) => (
-              <Grid.Col key={pokemon.id} span={{ base: 6, md: 3, lg: 3 }}>
-                <PokemonCard
-                  urlImage={pokemon.icon[0]}
-                  title={pokemon.name}
-                  color={pokemon.color}
-                  type={pokemon.types[0]}
-                  shape={pokemon.shape}
-                />
-              </Grid.Col>
-            ))}
-          </Grid>
-        )}
+        {isGetPokemonSuccess && <PokemonCardWrapper list={pokemons} />}
       </ContentContainer>
     </main>
   );

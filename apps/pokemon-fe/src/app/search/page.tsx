@@ -3,7 +3,6 @@
 import qs from 'querystring';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, Suspense } from 'react';
-import { Grid } from '@mantine/core';
 
 import { Navbar } from '../../components/Navbar';
 import { ContentContainer } from '../../components/ContentContainer';
@@ -13,7 +12,8 @@ import {
   useSearchSelector,
 } from '../../lib/features/search/searchHook';
 import { GetPokemonPayload } from '../../lib/features/search/searchType';
-import { PokemonCard } from '../../components/PokemonCard';
+
+import { PokemonCardWrapper } from '../../components/PokemonCardWrapper';
 
 function SearchIndex() {
   // selector
@@ -64,19 +64,11 @@ function SearchIndex() {
       <ContentContainer>
         {isGetPokemonLoading && <pre>Loading...</pre>}
         {isGetPokemonSuccess && (
-          <Grid>
-            {pokemons.map((pokemon) => (
-              <Grid.Col key={pokemon.id} span={{ base: 6, md: 3, lg: 3 }}>
-                <PokemonCard
-                  urlImage={pokemon.icon[0]}
-                  title={pokemon.name}
-                  color={pokemon.color}
-                  type={pokemon.types[0]}
-                  shape={pokemon.shape}
-                />
-              </Grid.Col>
-            ))}
-          </Grid>
+          <PokemonCardWrapper
+            list={pokemons}
+            pagination={false}
+            filterAndPaginationPosition={'top'}
+          />
         )}
       </ContentContainer>
     </main>
