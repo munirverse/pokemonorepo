@@ -8,16 +8,18 @@ import {
   useSearchDispatch,
   useSearchSelector,
 } from '../lib/features/search/searchHook';
-import { GetPokemonPayload } from '../lib/features/search/searchType';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ContentContainer } from '../components/ContentContainer';
 import { Hero } from './Hero';
 import { PokemonCardWrapper } from '../components/PokemonCardWrapper';
+import { usePaginationSelector } from '../lib/features/pagination/paginationHook';
 
 export default function Index() {
   // selector
   const search = useSearchSelector();
+
+  const pagination = usePaginationSelector();
 
   const router = useRouter();
 
@@ -25,17 +27,14 @@ export default function Index() {
   const searchDispatch = useSearchDispatch();
 
   // query api
-  const baseGetPokemonqQuery: GetPokemonPayload = {
-    page: 1,
-    limit: 8,
-  };
-
   const {
     data: pokemons,
     error: getPokemonError,
     isLoading: isGetPokemonLoading,
     isSuccess: isGetPokemonSuccess,
-  } = useGetPokemonQuery(qs.stringify(baseGetPokemonqQuery));
+  } = useGetPokemonQuery(
+    qs.stringify({ page: pagination.activePage, limit: pagination.pageNumber })
+  );
 
   // use effect
   useEffect(() => {
@@ -54,7 +53,12 @@ export default function Index() {
       <ContentContainer>
         <Hero />
         {isGetPokemonLoading && <pre>Loading...</pre>}
-        {isGetPokemonSuccess && <PokemonCardWrapper list={pokemons} />}
+        {isGetPokemonSuccess && (
+          <PokemonCardWrapper
+            list={pokemons.data}
+            pageData={pokemons.pagination}
+          />
+        )}
       </ContentContainer>
     </main>
   );

@@ -65,9 +65,10 @@ function SearchIndex() {
         {isGetPokemonLoading && <pre>Loading...</pre>}
         {isGetPokemonSuccess && (
           <PokemonCardWrapper
-            list={pokemons}
+            list={pokemons.data}
             pagination={false}
             filterAndPaginationPosition={'top'}
+            pageData={pokemons.pagination}
           />
         )}
       </ContentContainer>
