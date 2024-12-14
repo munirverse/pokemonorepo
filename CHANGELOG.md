@@ -1,3 +1,18 @@
+# [0.8.0](https://github.com/munirapp/pokemonorepo/compare/v0.7.0...v0.8.0) (2024-12-14)
+
+
+### Bug Fixes
+
+* add pokemon card in search page ([a8f70a8](https://github.com/munirapp/pokemonorepo/commit/a8f70a83f8d0c71dcb6220b694cf741deb5eaefc))
+* add skeleton loading in pokemon card ([8e6ee5d](https://github.com/munirapp/pokemonorepo/commit/8e6ee5d34801cdf556a183daa4e8ac69ddc52181))
+* increase limit of page when fetch pokemon list ([6cd6b12](https://github.com/munirapp/pokemonorepo/commit/6cd6b1298361fcaf14c35d90c5af694d98b96a28))
+* **pokemon-fe:** fix pagination issue on homepage ([4392f8c](https://github.com/munirapp/pokemonorepo/commit/4392f8c2ca80d056bafd48d7a6bf21f545aa4bb1))
+
+
+### Features
+
+* **pokemon-fe:** add PokemonCardWrapper component ([9288c41](https://github.com/munirapp/pokemonorepo/commit/9288c4154e3da4a783758744aa7178e8806a3575))
+
 # [0.7.0](https://github.com/munirapp/pokemonorepo/compare/v0.6.0...v0.7.0) (2024-12-01)
 
 
