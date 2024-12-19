@@ -1,59 +1,56 @@
 'use client';
 
+import { useState } from 'react';
 import { CloseButton, Input, InputProps } from '@mantine/core';
-import {
-  useSearchDispatch,
-  useSearchSelector,
-} from '../lib/features/search/searchHook';
 
 export type SearchInputProps = {
-  placeholder: string;
+  value: string;
+  placeholder?: string;
   size?: InputProps['size'];
+  onChange?: (value: string) => void;
+  onKeydown?: (value: string) => void;
 } & InputProps;
 
 export const SearchInput = ({
   placeholder,
+  value,
   size,
+  onChange,
+  onKeydown,
   ...props
 }: SearchInputProps) => {
-  // selector
-  const search = useSearchSelector();
-
-  // dispatch
-  const searchDispatch = useSearchDispatch();
-
   // handler
-  const handleSetInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    searchDispatch.setQueryText(e.target.value);
+  const onChangeWrapper = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (onChange) onChange(e.target.value);
   };
 
-  const handleClearInput = () => {
-    searchDispatch.setQueryText('');
+  const onClickCloseButton = () => {
+    if (onChange) onChange('');
   };
 
-  const handleSubmitInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      searchDispatch.setQueryParams(search.queryText);
+  const onKeydownWrapper = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && onKeydown) {
+      onKeydown(value);
     }
   };
 
-  const handleDisplayNone = (condition: boolean) => ({
-    display: condition ? undefined : 'none',
+  const isHidden = (condtion: boolean) => ({
+    display: condtion ? 'none' : undefined,
   });
 
   return (
     <Input
       size={size || 'xs'}
       placeholder={placeholder}
-      value={search.queryText}
-      onChange={handleSetInput}
-      onKeyDown={handleSubmitInput}
+      value={value}
+      onChange={onChangeWrapper}
+      onKeyDown={onKeydownWrapper}
       rightSectionPointerEvents="all"
       rightSection={
         <CloseButton
           aria-label="Clear input"
-          onClick={handleClearInput}
-          style={{ ...handleDisplayNone(search.queryText !== '') }}
+          onClick={onClickCloseButton}
+          style={isHidden(value === '')}
         />
       }
       {...props}

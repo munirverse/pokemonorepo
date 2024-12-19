@@ -15,24 +15,12 @@ const searchSlice = createSlice({
     setQueryText(state, action: PayloadAction<SearchState['queryText']>) {
       state.queryText = action.payload;
     },
-    setQueryParams(state, action: PayloadAction<SearchState['queryParams']>) {
-      state.active = true;
-      state.queryParams = action.payload;
-      state.history.push(action.payload);
-    },
-    activateSearchMode(state) {
-      state.active = true;
-    },
-    deactiveSearchMode(state) {
-      state.active = false;
+    setSearchActiveStatus(state, action: PayloadAction<SearchState['active']>) {
+      state.active = action.payload;
     },
   },
 });
 
-export const {
-  setQueryText,
-  setQueryParams,
-  deactiveSearchMode,
-  activateSearchMode,
-} = searchSlice.actions;
+export const { setQueryText, setSearchActiveStatus } = searchSlice.actions;
+
 export default searchSlice.reducer;

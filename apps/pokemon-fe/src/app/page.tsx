@@ -3,28 +3,17 @@
 import qs from 'querystring';
 import { Navbar } from '../components/Navbar';
 import './page.scss';
-import {
-  useGetPokemonQuery,
-  useSearchDispatch,
-  useSearchSelector,
-} from '../lib/features/search/searchHook';
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useGetPokemonQuery } from '../lib/features/search/searchHook';
+import { useEffect, useState } from 'react';
 import { ContentContainer } from '../components/ContentContainer';
 import { Hero } from './Hero';
 import { PokemonCardWrapper } from '../components/PokemonCardWrapper';
-import { usePaginationSelector } from '../lib/features/pagination/paginationHook';
 
 export default function Index() {
   // selector
-  const search = useSearchSelector();
+  const [pageSize, setPageSize] = useState<number>(8);
 
-  const pagination = usePaginationSelector();
-
-  const router = useRouter();
-
-  // dispatch
-  const searchDispatch = useSearchDispatch();
+  const [activePage, setActivePage] = useState<number>(1);
 
   // query api
   const {
@@ -32,20 +21,7 @@ export default function Index() {
     error: getPokemonError,
     isLoading: isGetPokemonLoading,
     isSuccess: isGetPokemonSuccess,
-  } = useGetPokemonQuery(
-    qs.stringify({ page: pagination.activePage, limit: pagination.pageNumber })
-  );
-
-  // use effect
-  useEffect(() => {
-    if (search.active) {
-      searchDispatch.deactiveSearchMode();
-    }
-
-    if (search.queryParams) {
-      router.push(`/search?q=${search.queryParams}`);
-    }
-  }, [search, router, searchDispatch]);
+  } = useGetPokemonQuery(qs.stringify({ page: activePage, limit: pageSize }));
 
   return (
     <main>
@@ -56,7 +32,11 @@ export default function Index() {
         {isGetPokemonSuccess && (
           <PokemonCardWrapper
             list={pokemons.data}
-            pageData={pokemons.pagination}
+            paginationMeta={pokemons.pagination}
+            pageSize={pageSize}
+            activePage={activePage}
+            onChangePageSize={setPageSize}
+            onChangeActivePage={setActivePage}
           />
         )}
       </ContentContainer>

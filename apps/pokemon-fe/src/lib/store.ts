@@ -12,6 +12,7 @@ export const makeStore = () => {
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(pokemonApi.middleware),
+    devTools: true,
   });
 };
 

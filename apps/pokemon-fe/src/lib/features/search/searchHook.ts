@@ -1,11 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '../../store';
-import {
-  setQueryParams,
-  setQueryText,
-  deactiveSearchMode,
-  activateSearchMode,
-} from './searchSlice';
+import { setQueryText, setSearchActiveStatus } from './searchSlice';
 import type { SearchState } from './searchType';
 import { useGetPokemonQuery } from './searchApi';
 
@@ -18,10 +13,8 @@ export const useSearchDispatch = () => {
   return {
     setQueryText: (queryText: SearchState['queryText']) =>
       dispatch(setQueryText(queryText)),
-    setQueryParams: (queryText: SearchState['queryParams']) =>
-      dispatch(setQueryParams(queryText)),
-    deactiveSearchMode: () => dispatch(deactiveSearchMode()),
-    activateSearchMode: () => dispatch(activateSearchMode()),
+    setSearchActiveStatus: (status: SearchState['active']) =>
+      dispatch(setSearchActiveStatus(status)),
   };
 };
 

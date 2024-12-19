@@ -2,7 +2,8 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Select, Button, Group, Text, Container } from '@mantine/core';
+import { useRouter } from 'next/navigation';
+import { Button, Group, Text, Container, Select } from '@mantine/core';
 import {
   IconSearch,
   IconMessageQuestion,
@@ -18,6 +19,7 @@ import {
 } from '../lib/features/search/searchHook';
 
 export const DekstopNavbar = () => {
+  // constant
   const links = [
     { link: '/', title: 'About', icon: <IconMessageQuestion size={16} /> },
     {
@@ -28,20 +30,26 @@ export const DekstopNavbar = () => {
   ];
 
   // selector
+  const router = useRouter();
+
   const search = useSearchSelector();
 
   // dispatch
   const searchDispatch = useSearchDispatch();
 
   // handler
-  const handleDisplayNone = (condition: boolean) => ({
-    display: !condition ? 'none' : undefined,
+  const isHidden = (condition: boolean) => ({
+    display: condition ? 'none' : undefined,
   });
 
-  const handleHomeClick = () => {
+  const onLogoClick = () => {
     searchDispatch.setQueryText('');
-    searchDispatch.setQueryParams('');
-    searchDispatch.deactiveSearchMode();
+    searchDispatch.setSearchActiveStatus(false);
+    router.push('/');
+  };
+
+  const onSearchInputKeydown = (value: string) => {
+    router.push(`/search?q=${value}`);
   };
 
   return (
@@ -49,24 +57,24 @@ export const DekstopNavbar = () => {
       <Container size={'lg'}>
         <Group justify={'space-between'} className="navbar-wrapper">
           <section>
-            <Link href={'/'} onClick={handleHomeClick}>
-              <div className="image-wrapper">
-                <Image
-                  alt="logo"
-                  src={'/logo.png'}
-                  sizes="200px"
-                  priority
-                  fill
-                  style={{ ...handleDisplayNone(search.active) }}
-                />
-              </div>
-            </Link>
+            <div className="image-wrapper" onClick={onLogoClick}>
+              <Image
+                alt="logo"
+                src={'/logo.png'}
+                sizes="200px"
+                priority
+                fill
+                style={isHidden(!search.active)}
+              />
+            </div>
           </section>
           <section style={{ flex: 1 }}>
             <SearchInput
-              placeholder="Search pokemon name"
+              value={search.queryText}
               leftSection={<IconSearch size={16} />}
-              style={{ ...handleDisplayNone(search.active) }}
+              style={isHidden(!search.active)}
+              onChange={searchDispatch.setQueryText}
+              onKeydown={onSearchInputKeydown}
             />
           </section>
           <section>
@@ -83,17 +91,18 @@ export const DekstopNavbar = () => {
                 size="xs"
                 leftSection={<IconAdjustmentsHorizontal size={16} />}
                 disabled
-                style={{ ...handleDisplayNone(false) }}
+                style={isHidden(true)}
               >
                 Settings
               </Button>
-              {/* <Select
+              <Select
                 data={['🇬🇧 (EN)', '🇯🇵 (JP)']}
                 value={'🇬🇧 (EN)'}
                 checkIconPosition={'right'}
                 className="lang-select"
                 size="xs"
-              ></Select> */}
+                style={isHidden(true)}
+              ></Select>
             </Group>
           </section>
         </Group>

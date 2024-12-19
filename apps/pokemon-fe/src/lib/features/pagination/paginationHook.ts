@@ -1,6 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '../../store';
-import { setActivePage, setPageNumber } from './paginationSlice';
+import {
+  setActivePage,
+  setInfiniteList,
+  setPageNumber,
+} from './paginationSlice';
 import type { PaginationState } from './paginationType';
 
 export const usePaginationSelector = () =>
@@ -14,5 +18,7 @@ export const usePaginationDispatch = () => {
       dispatch(setPageNumber(pageNumber)),
     setActivePage: (activePage: PaginationState['activePage']) =>
       dispatch(setActivePage(activePage)),
+    setInfiniteList: (list: PaginationState['infiniteList']) =>
+      dispatch(setInfiniteList(list)),
   };
 };

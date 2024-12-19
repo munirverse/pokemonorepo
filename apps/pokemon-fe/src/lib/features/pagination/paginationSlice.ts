@@ -4,6 +4,7 @@ import type { PaginationState } from './paginationType';
 const initialState: PaginationState = {
   pageNumber: 8,
   activePage: 1,
+  infiniteList: [],
 };
 
 const paginationSlice = createSlice({
@@ -16,8 +17,15 @@ const paginationSlice = createSlice({
     setActivePage(state, action: PayloadAction<PaginationState['activePage']>) {
       state.activePage = action.payload;
     },
+    setInfiniteList(
+      state,
+      action: PayloadAction<PaginationState['infiniteList']>
+    ) {
+      state.infiniteList = action.payload;
+    },
   },
 });
 
-export const { setPageNumber, setActivePage } = paginationSlice.actions;
+export const { setPageNumber, setActivePage, setInfiniteList } =
+  paginationSlice.actions;
 export default paginationSlice.reducer;

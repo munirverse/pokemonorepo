@@ -1,9 +1,9 @@
 'use client';
 
 import qs from 'querystring';
-import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, Suspense } from 'react';
-
+import { Button } from '@mantine/core';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Navbar } from '../../components/Navbar';
 import { ContentContainer } from '../../components/ContentContainer';
 import {
@@ -11,9 +11,15 @@ import {
   useSearchDispatch,
   useSearchSelector,
 } from '../../lib/features/search/searchHook';
-import { GetPokemonPayload } from '../../lib/features/search/searchType';
-
+import {
+  GetPokemonPayload,
+  PokemonBasic,
+} from '../../lib/features/search/searchType';
 import { PokemonCardWrapper } from '../../components/PokemonCardWrapper';
+import {
+  usePaginationDispatch,
+  usePaginationSelector,
+} from '../../lib/features/pagination/paginationHook';
 
 function SearchIndex() {
   // selector
@@ -23,8 +29,12 @@ function SearchIndex() {
 
   const search = useSearchSelector();
 
+  const pagination = usePaginationSelector();
+
   // dispatch
   const searchDispatch = useSearchDispatch();
+
+  const paginationDispatch = usePaginationDispatch();
 
   // query api
   const basePokemonQuery: GetPokemonPayload = {
@@ -45,18 +55,22 @@ function SearchIndex() {
   useEffect(() => {
     // redirect to home if query search not found
     if (!urlQuery.get('q')) {
+      searchDispatch.setSearchActiveStatus(false);
       router.push('/');
     }
 
-    // redirect to new query search if new search keywords changed
-    if (urlQuery.get('q') !== search.queryParams) {
-      router.push(`/search?q=${search.queryParams}`);
+    // Activate search status if it is not already active
+    if (!search.active) {
+      searchDispatch.setSearchActiveStatus(true);
     }
 
-    if (!search.active) {
-      searchDispatch.activateSearchMode();
+    // Set the initiate query text value if it is null
+    if (!search.queryText) {
+      searchDispatch.setQueryText(urlQuery.get('q')!);
     }
-  }, [urlQuery, search, router, searchDispatch]);
+
+    // Empty dependency array ensures this effect runs only once on component mount
+  }, []);
 
   return (
     <main>
@@ -66,9 +80,9 @@ function SearchIndex() {
         {isGetPokemonSuccess && (
           <PokemonCardWrapper
             list={pokemons.data}
-            pagination={false}
-            filterAndPaginationPosition={'top'}
-            pageData={pokemons.pagination}
+            enablePagination={false}
+            navigationPosition={'top'}
+            paginationMeta={pokemons?.pagination}
           />
         )}
       </ContentContainer>
