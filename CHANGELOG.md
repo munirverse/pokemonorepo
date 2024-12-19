@@ -1,3 +1,10 @@
+## [0.8.1](https://github.com/munirapp/pokemonorepo/compare/v0.8.0...v0.8.1) (2024-12-19)
+
+
+### Bug Fixes
+
+* simplify state management and laggy flow ([03e2d00](https://github.com/munirapp/pokemonorepo/commit/03e2d001f05156c897b212a1b66646b5df422a72))
+
 # [0.8.0](https://github.com/munirapp/pokemonorepo/compare/v0.7.0...v0.8.0) (2024-12-14)
 
 
