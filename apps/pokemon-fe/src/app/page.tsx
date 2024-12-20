@@ -1,13 +1,13 @@
 'use client';
 
 import qs from 'querystring';
+import { useState } from 'react';
 import { Navbar } from '../components/Navbar';
-import './page.scss';
 import { useGetPokemonQuery } from '../lib/features/search/searchHook';
-import { useEffect, useState } from 'react';
 import { ContentContainer } from '../components/ContentContainer';
 import { Hero } from './Hero';
 import { PokemonCardWrapper } from '../components/PokemonCardWrapper';
+import './page.scss';
 
 export default function Index() {
   // selector
@@ -18,7 +18,7 @@ export default function Index() {
   // query api
   const {
     data: pokemons,
-    error: getPokemonError,
+    error: isGetPokemonError,
     isLoading: isGetPokemonLoading,
     isSuccess: isGetPokemonSuccess,
   } = useGetPokemonQuery(qs.stringify({ page: activePage, limit: pageSize }));
@@ -29,6 +29,7 @@ export default function Index() {
       <ContentContainer>
         <Hero />
         {isGetPokemonLoading && <pre>Loading...</pre>}
+        {isGetPokemonError && <pre>error</pre>}
         {isGetPokemonSuccess && (
           <PokemonCardWrapper
             list={pokemons.data}
