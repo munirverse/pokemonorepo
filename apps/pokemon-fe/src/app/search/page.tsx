@@ -2,7 +2,6 @@
 
 import qs from 'querystring';
 import { useEffect, Suspense } from 'react';
-import { Button } from '@mantine/core';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Navbar } from '../../components/Navbar';
 import { ContentContainer } from '../../components/ContentContainer';
@@ -16,10 +15,6 @@ import {
   PokemonBasic,
 } from '../../lib/features/search/searchType';
 import { PokemonCardWrapper } from '../../components/PokemonCardWrapper';
-import {
-  usePaginationDispatch,
-  usePaginationSelector,
-} from '../../lib/features/pagination/paginationHook';
 
 function SearchIndex() {
   // selector
@@ -29,12 +24,8 @@ function SearchIndex() {
 
   const search = useSearchSelector();
 
-  const pagination = usePaginationSelector();
-
   // dispatch
   const searchDispatch = useSearchDispatch();
-
-  const paginationDispatch = usePaginationDispatch();
 
   // query api
   const basePokemonQuery: GetPokemonPayload = {
