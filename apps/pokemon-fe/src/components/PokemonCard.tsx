@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import NextImage from 'next/image';
-import { Card, Image, List, Text, Badge, Group } from '@mantine/core';
+import Image from 'next/image';
+import { Card, List, Text, Badge, Group } from '@mantine/core';
 import './PokemonCard.scss';
 
 type PokemonCardProps = {
@@ -19,22 +19,24 @@ export function PokemonCard({
   shape,
 }: PokemonCardProps) {
   const [isLoading, setLoading] = useState(true);
-  const [imageSrc, setImgSrc] = useState(urlImage);
+  const [imageSrc] = useState(urlImage);
 
   return (
     <Card shadow={'sm'} radius={'lg'}>
       <Card.Section>
         {isLoading && <div className="skeleton"></div>}
-        <Image
-          component={NextImage}
-          src={imageSrc}
-          height={200}
-          alt={title}
-          width={200}
-          onLoadingComplete={() => setLoading(false)}
-          onError={() => setLoading(false)}
-          style={{ visibility: isLoading ? 'hidden' : undefined }}
-        />
+        <div className={'image-wrapper'}>
+          <Image
+            src={imageSrc}
+            height={200}
+            alt={title}
+            width={200}
+            onLoad={() => setLoading(false)}
+            onError={() => setLoading(false)}
+            style={{ visibility: isLoading ? 'hidden' : undefined }}
+            loading={'lazy'}
+          />
+        </div>
       </Card.Section>
       <List mt={'xs'}>
         <Text size={'xs'} tt={'uppercase'} fw={700}>
