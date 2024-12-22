@@ -18,21 +18,38 @@ export function PokemonCard({
   type,
   shape,
 }: PokemonCardProps) {
+  // selector
   const [isLoading, setLoading] = useState(true);
-  const [imageSrc] = useState(urlImage);
+
+  const [imageSrc, setImageSrc] = useState(urlImage);
+
+  const [isImageError, setImageError] = useState(false);
+
+  // handler
+  const onImageError = () => {
+    setImageSrc('/broken.png');
+    setImageError(true);
+  };
+
+  const isHidden = (condtion: boolean) => {
+    return { display: condtion ? 'none' : undefined };
+  };
 
   return (
     <Card shadow={'sm'} radius={'lg'}>
       <Card.Section>
         {isLoading && <div className="skeleton"></div>}
         <div className={'image-wrapper'}>
+          <Text mt={'lg'} size={'lg'} style={isHidden(!isImageError)}>
+            Image is not available
+          </Text>
           <Image
             src={imageSrc}
-            height={200}
+            height={isImageError ? 151 : 200}
             alt={title}
-            width={200}
+            width={isImageError ? 151 : 200}
             onLoad={() => setLoading(false)}
-            onError={() => setLoading(false)}
+            onError={onImageError}
             style={{ visibility: isLoading ? 'hidden' : undefined }}
             loading={'lazy'}
           />
