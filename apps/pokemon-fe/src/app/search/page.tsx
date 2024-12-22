@@ -1,19 +1,16 @@
 'use client';
 
 import qs from 'querystring';
-import { useEffect, Suspense } from 'react';
+import { useEffect, Suspense, useRef, useCallback, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Navbar } from '../../components/Navbar';
 import { ContentContainer } from '../../components/ContentContainer';
 import {
-  useGetPokemonQuery,
+  useGetInfiniteScrollPokemonQuery,
   useSearchDispatch,
   useSearchSelector,
 } from '../../lib/features/search/searchHook';
-import {
-  GetPokemonPayload,
-  PokemonBasic,
-} from '../../lib/features/search/searchType';
+import { GetPokemonPayload } from '../../lib/features/search/searchType';
 import { PokemonCardWrapper } from '../../components/PokemonCardWrapper';
 
 function SearchIndex() {
@@ -24,22 +21,18 @@ function SearchIndex() {
 
   const search = useSearchSelector();
 
+  const refObserver = useRef(null);
+
   // dispatch
   const searchDispatch = useSearchDispatch();
 
   // query api
-  const basePokemonQuery: GetPokemonPayload = {
-    name: urlQuery.get('q') || '',
-    page: 1,
-    limit: 12,
-  };
-
   const {
     data: pokemons,
     isLoading: isGetPokemonLoading,
     isSuccess: isGetPokemonSuccess,
-  } = useGetPokemonQuery(qs.stringify(basePokemonQuery), {
-    skip: !urlQuery.get('q'),
+  } = useGetInfiniteScrollPokemonQuery(qs.stringify(search.infiniteBaseQuery), {
+    skip: !search.infiniteBaseQuery.name,
   });
 
   // use effect
@@ -56,12 +49,32 @@ function SearchIndex() {
     }
 
     // Set the initiate query text value if it is null
-    if (!search.queryText) {
+    if (!search.infiniteBaseQuery.name) {
       searchDispatch.setQueryText(urlQuery.get('q')!);
+      searchDispatch.setInfinteBaseQuery({ name: urlQuery.get('q')! });
     }
 
     // Empty dependency array ensures this effect runs only once on component mount
   }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entires) => {
+      const isTriggernNextPage =
+        entires[0].isIntersecting &&
+        isGetPokemonSuccess &&
+        pokemons.hasNextPage;
+
+      if (isTriggernNextPage) {
+        searchDispatch.setInfinteBaseQuery({
+          page: pokemons.currentPage + 1,
+        });
+      }
+    });
+
+    observer.observe(refObserver.current!);
+
+    return () => observer.disconnect();
+  }, [isGetPokemonSuccess, pokemons, search, searchDispatch]);
 
   return (
     <main>
@@ -73,9 +86,9 @@ function SearchIndex() {
             list={pokemons.data}
             enablePagination={false}
             navigationPosition={'top'}
-            paginationMeta={pokemons?.pagination}
           />
         )}
+        <div ref={refObserver} style={{ minHeight: 100 }}></div>
       </ContentContainer>
     </main>
   );

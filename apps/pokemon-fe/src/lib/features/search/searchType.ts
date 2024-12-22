@@ -2,8 +2,16 @@ export type SearchState = {
   active: boolean;
   queryText: string;
   queryParams: string;
-  history: string[];
+  infiniteBaseQuery: {
+    name: string;
+    page: number;
+    limit: number;
+  };
 };
+
+export type UpdateInfiteBaseQuery = {} & Partial<
+  SearchState['infiniteBaseQuery']
+>;
 
 export type GetPokemonPayload = {
   name?: string;
@@ -27,4 +35,11 @@ export type GetPokemonRes = {
     pageTotal: number;
   };
   data: PokemonBasic[];
+};
+
+export type PokemonInfiniteList = {
+  data: PokemonBasic[];
+  currentQuery: string;
+  currentPage: number;
+  hasNextPage: boolean;
 };

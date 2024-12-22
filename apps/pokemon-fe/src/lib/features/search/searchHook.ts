@@ -1,8 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '../../store';
-import { setQueryText, setSearchActiveStatus } from './searchSlice';
+import {
+  setInfinteBaseQuery,
+  setQueryText,
+  setSearchActiveStatus,
+} from './searchSlice';
 import type { SearchState } from './searchType';
-import { useGetPokemonQuery } from './searchApi';
+import {
+  useGetPokemonQuery,
+  useGetInfiniteScrollPokemonQuery,
+} from './searchApi';
 
 export const useSearchSelector = () =>
   useSelector.withTypes<RootState>()((state) => state.search);
@@ -15,8 +22,10 @@ export const useSearchDispatch = () => {
       dispatch(setQueryText(queryText)),
     setSearchActiveStatus: (status: SearchState['active']) =>
       dispatch(setSearchActiveStatus(status)),
+    setInfinteBaseQuery: (payload: Partial<SearchState['infiniteBaseQuery']>) =>
+      dispatch(setInfinteBaseQuery(payload)),
   };
 };
 
 // export query api hook
-export { useGetPokemonQuery };
+export { useGetPokemonQuery, useGetInfiniteScrollPokemonQuery };

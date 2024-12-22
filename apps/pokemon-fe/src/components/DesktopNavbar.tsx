@@ -45,10 +45,12 @@ export const DekstopNavbar = () => {
   const onLogoClick = () => {
     searchDispatch.setQueryText('');
     searchDispatch.setSearchActiveStatus(false);
+    searchDispatch.setInfinteBaseQuery({ name: '', page: 1 });
     router.push('/');
   };
 
-  const onSearchInputKeydown = (value: string) => {
+  const onSearchInputKeydown = async (value: string) => {
+    searchDispatch.setInfinteBaseQuery({ name: value, page: 1 });
     router.push(`/search?q=${value}`);
   };
 

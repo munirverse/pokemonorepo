@@ -5,7 +5,11 @@ const initialState: SearchState = {
   active: false,
   queryText: '',
   queryParams: '',
-  history: [],
+  infiniteBaseQuery: {
+    name: '',
+    page: 1,
+    limit: 16,
+  },
 };
 
 const searchSlice = createSlice({
@@ -18,9 +22,19 @@ const searchSlice = createSlice({
     setSearchActiveStatus(state, action: PayloadAction<SearchState['active']>) {
       state.active = action.payload;
     },
+    setInfinteBaseQuery(
+      state,
+      action: PayloadAction<Partial<SearchState['infiniteBaseQuery']>>
+    ) {
+      state.infiniteBaseQuery = {
+        ...state.infiniteBaseQuery,
+        ...action.payload,
+      };
+    },
   },
 });
 
-export const { setQueryText, setSearchActiveStatus } = searchSlice.actions;
+export const { setQueryText, setSearchActiveStatus, setInfinteBaseQuery } =
+  searchSlice.actions;
 
 export default searchSlice.reducer;
