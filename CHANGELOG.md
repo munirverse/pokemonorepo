@@ -1,3 +1,18 @@
+# [0.9.0](https://github.com/munirapp/pokemonorepo/compare/v0.8.1...v0.9.0) (2024-12-22)
+
+
+### Bug Fixes
+
+* **pokemon-fe:** handle broken image in pokemon card ([08a4473](https://github.com/munirapp/pokemonorepo/commit/08a44733a27319fcd708d48573a31bacb42ca6ac))
+* **pokemon-fe:** improve styling and import order ([3d9e5b2](https://github.com/munirapp/pokemonorepo/commit/3d9e5b29020ba506aaa3d97d123bd95f8f624e62))
+* **pokemon-fe:** migrate image component to default next image ([5c7cfcd](https://github.com/munirapp/pokemonorepo/commit/5c7cfcd366ff623f2d779f8753e2b4a300baeb40))
+* **pokemon-fe:** remove pagination slice ([f451f39](https://github.com/munirapp/pokemonorepo/commit/f451f39e6a0c170ad842d20638320157f1527d26))
+
+
+### Features
+
+* **pokemon-fe:** add infite scroll feature and state improvement ([a1ca868](https://github.com/munirapp/pokemonorepo/commit/a1ca8685896051b8a29e933241e4e8f1a3e7eab4))
+
 ## [0.8.1](https://github.com/munirapp/pokemonorepo/compare/v0.8.0...v0.8.1) (2024-12-19)
 
 
