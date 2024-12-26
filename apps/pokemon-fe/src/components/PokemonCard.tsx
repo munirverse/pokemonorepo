@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Card, List, Text, Badge, Group } from '@mantine/core';
+// @ts-ignore
+import BrokenImage from '../../public/broken.png';
 import './PokemonCard.scss';
 
 export type PokemonCardProps = {
@@ -29,7 +31,8 @@ export function PokemonCard({
 
   // handler
   const onImageError = () => {
-    setImageSrc('/broken.png');
+    console.log('error image');
+    setImageSrc(BrokenImage);
     setImageError(true);
   };
 

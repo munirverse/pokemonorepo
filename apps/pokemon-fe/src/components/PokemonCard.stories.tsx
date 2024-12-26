@@ -3,16 +3,14 @@ import { MantineProvider } from '@mantine/core';
 import { PokemonCard } from './PokemonCard';
 import '@mantine/core/styles.css';
 
-const pokemons = [
-  {
-    title: 'Pikachu',
-    color: 'yellow',
-    urlImage:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png',
-    type: 'electric',
-    shape: 'quadruped',
-  },
-];
+const pokemons = {
+  title: 'Pikachu',
+  color: 'yellow',
+  type: 'electric',
+  shape: 'quadruped',
+  urlImage:
+    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png',
+};
 
 const meta = {
   title: 'Pokemon Card',
@@ -20,42 +18,12 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
-  argTypes: {
-    title: {
-      table: {
-        readonly: true,
-      },
-    },
-    urlImage: {
-      table: {
-        readonly: true,
-      },
-    },
-    color: {
-      table: {
-        readonly: true,
-      },
-    },
-    type: {
-      table: {
-        readonly: true,
-      },
-    },
-    shape: {
-      table: {
-        readonly: true,
-      },
-    },
-    loading: {
-      table: {
-        disable: true,
-      },
-    },
-  },
   decorators: [
     (Story) => (
       <MantineProvider>
-        <Story />
+        <div style={{ minWidth: 250 }}>
+          <Story />
+        </div>
       </MantineProvider>
     ),
   ],
@@ -65,14 +33,68 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  argTypes: {
+    urlImage: { table: { readonly: true } },
+    loading: { table: { disable: true } },
+  },
+  args: { ...pokemons },
+  render: (props) => <PokemonCard {...props} />,
+};
+
+export const Loading: Story = {
+  argTypes: {
+    title: {
+      table: { readonly: true },
+    },
+    color: {
+      table: { readonly: true },
+    },
+    type: {
+      table: { readonly: true },
+    },
+    shape: {
+      table: { readonly: true },
+    },
+    urlImage: {
+      table: { readonly: true },
+    },
+    loading: {
+      table: { disable: true },
+    },
+  },
   args: {
-    title: pokemons[0].title,
-    color: pokemons[0].color,
-    urlImage: pokemons[0].urlImage,
-    type: pokemons[0].type,
-    shape: pokemons[0].shape,
+    loading: true,
+    ...pokemons,
   },
-  render: (props) => {
-    return <PokemonCard {...props} />;
+  render: (props) => <PokemonCard {...props} />,
+};
+
+export const Error: Story = {
+  argTypes: {
+    title: {
+      table: { readonly: true },
+    },
+    color: {
+      table: { readonly: true },
+    },
+    type: {
+      table: { readonly: true },
+    },
+    shape: {
+      table: { readonly: true },
+    },
+    urlImage: {
+      table: { readonly: true },
+    },
+    loading: {
+      table: { disable: true },
+    },
   },
+
+  args: {
+    ...pokemons,
+    urlImage: 'invalid_url',
+  },
+
+  render: (props) => <PokemonCard {...props} />,
 };

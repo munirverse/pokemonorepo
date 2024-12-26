@@ -1,6 +1,6 @@
 import type { Preview } from '@storybook/react';
 
-export const globals = {
+export const initialGlobals = {
   backgrounds: {
     grid: true,
   },
@@ -13,6 +13,7 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
+      disableSaveFromUI: true,
     },
     backgrounds: {
       values: [
