@@ -3,12 +3,13 @@ import Image from 'next/image';
 import { Card, List, Text, Badge, Group } from '@mantine/core';
 import './PokemonCard.scss';
 
-type PokemonCardProps = {
+export type PokemonCardProps = {
   urlImage: string;
   title: string;
   color: string;
   type: string;
   shape: string;
+  loading?: boolean;
 };
 
 export function PokemonCard({
@@ -17,6 +18,7 @@ export function PokemonCard({
   color,
   type,
   shape,
+  loading = false,
 }: PokemonCardProps) {
   // selector
   const [isLoading, setLoading] = useState(true);
@@ -48,7 +50,7 @@ export function PokemonCard({
             height={isImageError ? 151 : 200}
             alt={title}
             width={isImageError ? 151 : 200}
-            onLoad={() => setLoading(false)}
+            onLoad={() => loading || setLoading(false)}
             onError={onImageError}
             style={{ visibility: isLoading ? 'hidden' : undefined }}
             loading={'lazy'}
