@@ -18,7 +18,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const SearchInputWrapper = (props: SearchInputProps) => {
+const SearchInputStoryWrapper = (props: SearchInputProps) => {
   const [queryText, setQueryText] = useState<string>(props.value);
 
   const onChange = (value: string) => {
@@ -43,12 +43,12 @@ const SearchInputWrapper = (props: SearchInputProps) => {
 export const Default: Story = {
   args: {
     placeholder: "Search Pokemon's name",
-    size: "xl",
+    size: 'xl',
     value: 'Pikachu',
   },
   render: (props) => (
     <MantineProvider>
-      <SearchInputWrapper {...props} />
+      <SearchInputStoryWrapper {...props} />
     </MantineProvider>
   ),
 };
