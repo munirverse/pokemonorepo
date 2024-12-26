@@ -2,23 +2,34 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { MantineProvider } from '@mantine/core';
-import { SearchInput, SearchInputProps } from './SearchInput';
+import {
+  SearchInput as OriginalSearchInput,
+  SearchInputProps,
+} from './SearchInput';
 import '@mantine/core/styles.css';
 
 const meta = {
   title: 'Search Input',
-  component: SearchInput,
+  tags: ['autodocs', 'wrapper components'],
+  component: OriginalSearchInput,
   argTypes: { size: { options: ['xs', 'sm', 'md', 'lg', 'xl'] } },
   parameters: {
     layout: 'centered',
     argTypesRegex: '^on.*',
   },
-} satisfies Meta<typeof SearchInput>;
+  decorators: [
+    (Story) => (
+      <MantineProvider>
+        <Story />
+      </MantineProvider>
+    ),
+  ],
+} satisfies Meta<typeof OriginalSearchInput>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const SearchInputStoryWrapper = (props: SearchInputProps) => {
+const SearchInput = (props: SearchInputProps) => {
   const [queryText, setQueryText] = useState<string>(props.value);
 
   const onChange = (value: string) => {
@@ -31,7 +42,7 @@ const SearchInputStoryWrapper = (props: SearchInputProps) => {
   };
 
   return (
-    <SearchInput
+    <OriginalSearchInput
       {...props}
       value={queryText}
       onChange={onChange}
@@ -46,9 +57,5 @@ export const Default: Story = {
     size: 'xl',
     value: 'Pikachu',
   },
-  render: (props) => (
-    <MantineProvider>
-      <SearchInputStoryWrapper {...props} />
-    </MantineProvider>
-  ),
+  render: (props) => <SearchInput {...props} />,
 };

@@ -14,6 +14,7 @@ const pokemons = {
 
 const meta = {
   title: 'Pokemon Card',
+  tags: ['autodocs', 'components'],
   component: PokemonCard,
   parameters: {
     layout: 'centered',
@@ -42,6 +43,7 @@ export const Default: Story = {
 };
 
 export const Loading: Story = {
+  name: 'On Loading',
   argTypes: {
     title: {
       table: { readonly: true },
@@ -70,6 +72,7 @@ export const Loading: Story = {
 };
 
 export const Error: Story = {
+  name: 'On Error',
   argTypes: {
     title: {
       table: { readonly: true },

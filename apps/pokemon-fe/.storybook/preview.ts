@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/react';
+import theme from './theme';
 
 export const initialGlobals = {
   backgrounds: {
@@ -8,6 +9,9 @@ export const initialGlobals = {
 
 const preview: Preview = {
   parameters: {
+    docs: {
+      theme,
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
