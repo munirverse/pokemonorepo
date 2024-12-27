@@ -1,3 +1,17 @@
+# [0.10.0](https://github.com/munirapp/pokemonorepo/compare/v0.9.0...v0.10.0) (2024-12-27)
+
+
+### Bug Fixes
+
+* **pokemon-fe:** improve and add another variant of pokemon card stories ([5f1948d](https://github.com/munirapp/pokemonorepo/commit/5f1948d5ba84e21ec23855c25e1bc001f56d4aab))
+* **pokemon-fe:** improve search input stories ([98240a5](https://github.com/munirapp/pokemonorepo/commit/98240a5c52dec05841087ccb512c2521af29fc66))
+* **pokemon-fe:** improve storybook theming ([397440c](https://github.com/munirapp/pokemonorepo/commit/397440c96a4a6758e965009f32671e3f92d5115b))
+
+
+### Features
+
+* **pokemon-fe:** add default story pokemon card ([0d8c5cb](https://github.com/munirapp/pokemonorepo/commit/0d8c5cb5d2a3d98b82204522aff1e24c9565748a))
+
 # [0.9.0](https://github.com/munirapp/pokemonorepo/compare/v0.8.1...v0.9.0) (2024-12-22)
 
 
