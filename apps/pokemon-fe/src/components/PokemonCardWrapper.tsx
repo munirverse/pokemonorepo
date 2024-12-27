@@ -1,5 +1,5 @@
 import { Grid, Group, Pagination, List, Select } from '@mantine/core';
-import { GetPokemonRes, PokemonBasic } from '../lib/features/search/searchType';
+import { PokemonBasic } from '../lib/features/search/searchType';
 import { PokemonCard } from './PokemonCard';
 
 const NavigationPosition = {
@@ -8,12 +8,12 @@ const NavigationPosition = {
   BOTH: 'both',
 } as const;
 
-type PokemonCardWrapperProps = {
+export type PokemonCardWrapperProps = {
   list: PokemonBasic[];
-  paginationMeta?: GetPokemonRes['pagination'];
   enableFilter?: boolean;
   enablePagination?: boolean;
   navigationPosition?: (typeof NavigationPosition)[keyof typeof NavigationPosition];
+  pageTotal?: number;
   pageSize?: number;
   activePage?: number;
   onChangePageSize?: (pageSize: number) => void;
@@ -22,18 +22,20 @@ type PokemonCardWrapperProps = {
 
 export function PokemonCardWrapper({
   list,
-  paginationMeta,
   onChangePageSize,
   onChangeActivePage,
-  pageSize = 8,
+  pageTotal,
+  pageSize,
   activePage = 1,
   enableFilter = true,
   enablePagination = true,
   navigationPosition = 'both',
 }: PokemonCardWrapperProps) {
   // constant
-  const pageSizeList: string[] = paginationMeta?.pageSize
-    ? Array.from({ length: 3 }, (_, index) => ((index + 1) * 8).toString())
+  const pageSizeList: string[] = pageSize
+    ? Array.from({ length: 3 }, (_, index) =>
+        ((index + 1) * pageSize).toString()
+      )
     : [];
 
   // handler
@@ -54,7 +56,7 @@ export function PokemonCardWrapper({
     navigationPosition === NavigationPosition.BOTTOM;
 
   const isHidden = (condtion: boolean) => ({
-    display: condtion ? undefined : 'none',
+    display: condtion ? 'none' : undefined,
   });
 
   const PokemonFilterAndPaginationWrapper = () => (
@@ -67,14 +69,14 @@ export function PokemonCardWrapper({
       <Group style={{ display: enablePagination ? undefined : 'none' }}>
         <Select
           data={pageSizeList}
-          value={pageSize.toString()}
+          value={pageSize?.toString() || ''}
           onChange={onChangePageSizeWrapper}
           maw={70}
-          style={isHidden(paginationMeta !== undefined)}
+          style={isHidden(!pageSizeList.length)}
         />
         <Pagination
           value={activePage}
-          total={paginationMeta?.pageTotal || 0}
+          total={pageTotal || 0}
           onChange={onChangeActivePageWrapper}
         />
       </Group>

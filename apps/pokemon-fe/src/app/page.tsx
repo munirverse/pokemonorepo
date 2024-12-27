@@ -33,7 +33,7 @@ export default function Index() {
         {isGetPokemonSuccess && (
           <PokemonCardWrapper
             list={pokemons.data}
-            paginationMeta={pokemons.pagination}
+            pageTotal={pokemons.pagination.pageTotal}
             pageSize={pageSize}
             activePage={activePage}
             onChangePageSize={setPageSize}
