@@ -19,6 +19,8 @@ jobs:
           node-version: '22'
       - name: Install related dependencies
         run: npm install --legacy-peer-deps
+      - name: Trigger prisma generate
+        run: npx prisma generate --schema apps/pokemon-be/prisma/schema.prisma
       - name: Trigger Semantic Release
         env: 
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
