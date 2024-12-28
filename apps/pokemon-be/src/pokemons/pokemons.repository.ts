@@ -150,4 +150,12 @@ export class PokemonsRepository {
       data,
     };
   }
+
+  async groupByTypes() {
+    return this.prismaService.types.groupBy({ by: ['name'] });
+  }
+
+  async groupByShapes() {
+    return this.prismaService.species.groupBy({ by: ['shape'] });
+  }
 }

@@ -1,10 +1,10 @@
 import qs from 'querystring';
 import axios from 'axios';
-import expectedObjectScenario1 from './fixtures/get-pokemon/happy-flow/scenario1';
-import expectedObjectScenario2 from './fixtures/get-pokemon/happy-flow/scenario2';
-import expectedObjectScenario3 from './fixtures/get-pokemon/happy-flow/scenario3';
-import expectedObjectScenario4 from './fixtures/get-pokemon/happy-flow/scenario4';
-import expectedObjectScenario7 from './fixtures/get-pokemon/negative-flow/scenario7';
+import expectedObjectScenario1 from './fixtures/find-pokemons/happy-flow/scenario1';
+import expectedObjectScenario2 from './fixtures/find-pokemons/happy-flow/scenario2';
+import expectedObjectScenario3 from './fixtures/find-pokemons/happy-flow/scenario3';
+import expectedObjectScenario4 from './fixtures/find-pokemons/happy-flow/scenario4';
+import expectedObjectScenario7 from './fixtures/find-pokemons/negative-flow/scenario7';
 
 describe('GET /api/pokemons', () => {
   describe('happy flow scenario', () => {

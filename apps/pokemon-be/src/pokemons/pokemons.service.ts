@@ -46,7 +46,7 @@ export type SIMPLE_POKEMON_DATA = {
 export class PokemonsService {
   constructor(private repository: PokemonsRepository) {}
 
-  async getPokemons(params: PokemonFindParams) {
+  async findPokemons(params: PokemonFindParams) {
     try {
       const rawData = (await this.repository.find(params)) as ResultWithCursor<
         PokemonFullPayload[]
@@ -76,6 +76,34 @@ export class PokemonsService {
         cause: error,
         description: error.message,
       });
+    }
+  }
+
+  async getPokemonTypesList() {
+    try {
+      const data = await this.repository.groupByTypes();
+
+      return {
+        data: data.filter((x) => x.name).map((x) => ({ type: x.name })),
+      };
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'failed to get list of pokemon types',
+        { cause: error, description: error.message }
+      );
+    }
+  }
+
+  async getPokemonShapesList() {
+    try {
+      const data = await this.repository.groupByShapes();
+
+      return { data: data.filter((x) => x.shape) };
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'failed to get list of pokemon shapes',
+        { cause: error, description: error.message }
+      );
     }
   }
 }

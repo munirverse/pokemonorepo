@@ -10,12 +10,12 @@ describe('PokemonsService', () => {
   let service: PokemonsService;
   let repository: PokemonsRepository;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [PokemonsService],
     })
       .useMocker((token) => {
-        const mockData = {
+        const findPokemonsMockData = {
           cursor: {
             lastId: 26,
             hasNextPage: true,
@@ -46,8 +46,32 @@ describe('PokemonsService', () => {
           ],
         };
 
+        const getPokemonTypeListMockData = [
+          { name: 'dragon' },
+          { name: 'rock' },
+          { name: '' },
+        ];
+
+        const getPokemonShapesListMockData = [
+          {
+            shape: 'tentacles',
+          },
+          {
+            shape: 'arms',
+          },
+          { shape: '' },
+        ];
+
         if (token === PokemonsRepository) {
-          return { find: jest.fn().mockResolvedValue(mockData) };
+          return {
+            find: jest.fn().mockResolvedValue(findPokemonsMockData),
+            groupByTypes: jest
+              .fn()
+              .mockResolvedValue(getPokemonTypeListMockData),
+            groupByShapes: jest
+              .fn()
+              .mockResolvedValue(getPokemonShapesListMockData),
+          };
         }
 
         if (typeof token === 'function') {
@@ -71,51 +95,138 @@ describe('PokemonsService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should called expected function and return expected result', async () => {
-    // Given
-    const params = {};
+  describe('findPokemons test', () => {
+    it('should called expected function and return expected result', async () => {
+      // Given
+      const params = {};
 
-    const expectedResult: SIMPLE_POKEMON_DATA[] = [
-      {
-        id: 25,
-        name: 'pikachu',
-        types: ['electric'],
-        color: 'yellow',
-        shape: 'quadruped',
-        icon: [
-          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png',
-        ],
-      },
-    ];
+      const expectedResult: SIMPLE_POKEMON_DATA[] = [
+        {
+          id: 25,
+          name: 'pikachu',
+          types: ['electric'],
+          color: 'yellow',
+          shape: 'quadruped',
+          icon: [
+            'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png',
+          ],
+        },
+      ];
 
-    // When
-    const data = await service.getPokemons(params);
+      // When
+      const data = await service.findPokemons(params);
 
-    // Then
-    expect(repository.find).toHaveBeenCalled();
-
-    expect(data.data).toMatchObject(expectedResult);
-  });
-
-  it('should throw expected error', async () => {
-    // Given
-    const expectedErrorCause = new Error('Repository Failed');
-
-    (repository.find as jest.Mock).mockRejectedValue(expectedErrorCause);
-
-    // When & Then
-    try {
-      await service.getPokemons({});
-    } catch (error) {
+      // Then
       expect(repository.find).toHaveBeenCalled();
 
-      expect(error instanceof InternalServerErrorException).toBe(true);
+      expect(data.data).toMatchObject(expectedResult);
+    });
 
-      expect(error.getResponse()).toMatchObject({
-        error: expectedErrorCause.message,
-        message: 'failed to get pokemons',
-        statusCode: 500,
-      });
-    }
+    it('should throw expected error', async () => {
+      // Given
+      const expectedErrorCause = new Error('Repository Failed');
+
+      (repository.find as jest.Mock).mockRejectedValue(expectedErrorCause);
+
+      // When & Then
+      try {
+        await service.findPokemons({});
+      } catch (error) {
+        expect(repository.find).toHaveBeenCalled();
+
+        expect(error instanceof InternalServerErrorException).toBe(true);
+
+        expect(error.getResponse()).toMatchObject({
+          error: expectedErrorCause.message,
+          message: 'failed to get pokemons',
+          statusCode: 500,
+        });
+      }
+    });
+  });
+
+  describe('getPokemonTypeList test', () => {
+    it('should called expected function and return expected result', async () => {
+      // Given
+      const expectedResult = [{ type: 'dragon' }, { type: 'rock' }];
+
+      // When
+      const data = await service.getPokemonTypesList();
+
+      // Then
+      expect(repository.groupByTypes).toHaveBeenCalled();
+
+      expect(data.data).toMatchObject(expectedResult);
+    });
+
+    it('should throw expected error', async () => {
+      // Given
+      const expectedErrorCause = new Error('Repository Failed');
+
+      (repository.groupByTypes as jest.Mock).mockRejectedValue(
+        expectedErrorCause
+      );
+
+      // When & Then
+      try {
+        await service.getPokemonTypesList();
+      } catch (error) {
+        expect(repository.groupByTypes).toHaveBeenCalled();
+
+        expect(error instanceof InternalServerErrorException).toBe(true);
+
+        expect(error.getResponse()).toMatchObject({
+          error: expectedErrorCause.message,
+          message: 'failed to get list of pokemon types',
+          statusCode: 500,
+        });
+      }
+    });
+  });
+
+  describe('getPokemonShapesList test', () => {
+    it('should called expected function and return expected result', async () => {
+      // Given
+      const expectedResult = [
+        {
+          shape: 'tentacles',
+        },
+        {
+          shape: 'arms',
+        },
+      ];
+
+      // When
+      const data = await service.getPokemonShapesList();
+
+      // Then
+      expect(repository.groupByShapes).toHaveBeenCalled();
+
+      expect(data.data).toMatchObject(expectedResult);
+    });
+
+    it('should throw expected error', async () => {
+      // Given
+      const expectedErrorCause = new Error('Repository Failed');
+
+      (repository.groupByShapes as jest.Mock).mockRejectedValue(
+        expectedErrorCause
+      );
+
+      // When & Then
+      try {
+        await service.getPokemonShapesList();
+      } catch (error) {
+        expect(repository.groupByShapes).toHaveBeenCalled();
+
+        expect(error instanceof InternalServerErrorException).toBe(true);
+
+        expect(error.getResponse()).toMatchObject({
+          error: expectedErrorCause.message,
+          message: 'failed to get list of pokemon shapes',
+          statusCode: 500,
+        });
+      }
+    });
   });
 });

@@ -16,7 +16,11 @@ describe('PokemonsController', () => {
     })
       .useMocker((token) => {
         if (token === PokemonsService) {
-          return { getPokemons: jest.fn().mockResolvedValue(true) };
+          return {
+            findPokemons: jest.fn().mockResolvedValue(true),
+            getPokemonTypesList: jest.fn().mockResolvedValue(true),
+            getPokemonShapesList: jest.fn().mockResolvedValue(true),
+          };
         }
 
         if (typeof token === 'function') {
@@ -40,24 +44,48 @@ describe('PokemonsController', () => {
     expect(controller).toBeDefined();
   });
 
-  it('should called expected provider', async () => {
-    // Given
-    const query: FindPokemonDto = {
-      id: 0,
-      name: '',
-      types: '',
-      color: '',
-      shape: '',
-      page: 0,
-      cursor: false,
-      lastId: 0,
-      limit: 0,
-    };
+  describe('findPokemons test', () => {
+    it('should called expected provider', async () => {
+      // Given
+      const query: FindPokemonDto = {
+        id: 0,
+        name: '',
+        types: '',
+        color: '',
+        shape: '',
+        page: 0,
+        cursor: false,
+        lastId: 0,
+        limit: 0,
+      };
 
-    // When
-    await controller.getData(query);
+      // When
+      await controller.findPokemons(query);
 
-    // Then
-    expect(provider.getPokemons).toHaveBeenCalled();
+      // Then
+      expect(provider.findPokemons).toHaveBeenCalled();
+    });
+  });
+
+  describe('getPokemonTypeList test', () => {
+    it('should called expected provider', async () => {
+      // Given
+      // When
+      await controller.getPokemonTypesList();
+
+      // Then
+      expect(provider.getPokemonTypesList).toHaveBeenCalled();
+    });
+  });
+
+  describe('getPokemonShapesList test', () => {
+    it('should called expected provider', async () => {
+      // Given
+      // When
+      await controller.getPokemonShapesList();
+
+      // Then
+      expect(provider.getPokemonShapesList).toHaveBeenCalled();
+    });
   });
 });

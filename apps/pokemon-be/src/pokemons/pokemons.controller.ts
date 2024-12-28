@@ -12,7 +12,19 @@ export class PokemonsController {
   @Get()
   @ApiOperation({ summary: 'Find Pokemons' })
   @ApiResponse(findPokemonExample)
-  async getData(@Query() pokemonDto: FindPokemonDto) {
-    return this.service.getPokemons(pokemonDto);
+  async findPokemons(@Query() pokemonDto: FindPokemonDto) {
+    return this.service.findPokemons(pokemonDto);
+  }
+
+  @Get('/types')
+  @ApiOperation({ summary: 'Get List of Pokemon Types' })
+  async getPokemonTypesList() {
+    return this.service.getPokemonTypesList();
+  }
+
+  @Get('/shapes')
+  @ApiOperation({ summary: 'Get List of Pokemon Shapes' })
+  async getPokemonShapesList() {
+    return this.service.getPokemonShapesList();
   }
 }
