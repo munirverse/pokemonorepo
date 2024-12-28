@@ -1,3 +1,10 @@
+# [0.11.0](https://github.com/munirapp/pokemonorepo/compare/v0.10.0...v0.11.0) (2024-12-28)
+
+
+### Features
+
+* **pokemon-be:** add shapes and types list endpoint ([9c1b656](https://github.com/munirapp/pokemonorepo/commit/9c1b65632c963bb5a1c061f066d1cfe4481b9302))
+
 # [0.10.0](https://github.com/munirapp/pokemonorepo/compare/v0.9.0...v0.10.0) (2024-12-27)
 
 
