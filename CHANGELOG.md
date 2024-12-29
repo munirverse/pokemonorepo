@@ -1,3 +1,15 @@
+# [0.12.0](https://github.com/munirapp/pokemonorepo/compare/v0.11.0...v0.12.0) (2024-12-29)
+
+
+### Bug Fixes
+
+* **pokemon-be:** add get types and shapes on api specs ([035d105](https://github.com/munirapp/pokemonorepo/commit/035d105a916d9131bc1b85e95eed3a670c407abc))
+
+
+### Features
+
+* **pokemon-fe:** add feature of filter by types and shapes ([e149f0b](https://github.com/munirapp/pokemonorepo/commit/e149f0b3b428c415a98eb2927fcabb3ccd482984))
+
 # [0.11.0](https://github.com/munirapp/pokemonorepo/compare/v0.10.0...v0.11.0) (2024-12-28)
 
 
