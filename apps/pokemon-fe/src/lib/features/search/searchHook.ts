@@ -9,6 +9,8 @@ import type { SearchState } from './searchType';
 import {
   useGetPokemonQuery,
   useGetInfiniteScrollPokemonQuery,
+  useGetPokemonTypesListQuery,
+  useGetPokemonShapesListQuery,
 } from './searchApi';
 
 export const useSearchSelector = () =>
@@ -28,4 +30,9 @@ export const useSearchDispatch = () => {
 };
 
 // export query api hook
-export { useGetPokemonQuery, useGetInfiniteScrollPokemonQuery };
+export {
+  useGetPokemonQuery,
+  useGetInfiniteScrollPokemonQuery,
+  useGetPokemonTypesListQuery,
+  useGetPokemonShapesListQuery,
+};

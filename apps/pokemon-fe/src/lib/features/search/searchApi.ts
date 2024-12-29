@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { GetPokemonRes, PokemonInfiniteList } from './searchType';
+import { GetPokemonRes, PokemonInfiniteList, SelectList } from './searchType';
 
 export const pokemonApi = createApi({
   reducerPath: 'pokemonApi',
@@ -16,11 +16,10 @@ export const pokemonApi = createApi({
     getInfiniteScrollPokemon: builder.query<PokemonInfiniteList, string>({
       query: (params) => `pokemons?${params}`,
       transformResponse: (value: GetPokemonRes, _, arg) => {
-        console.log('arg: ', arg);
         const params = new URLSearchParams(arg);
         return {
           data: value.data,
-          currentQuery: params.get('name')!,
+          currentQuery: params.get('name') || '',
           currentPage: +value.pagination.pageNumber || 1,
           hasNextPage: value.pagination.pageTotal > value.pagination.pageNumber,
         };
@@ -54,8 +53,38 @@ export const pokemonApi = createApi({
         return isRefetch;
       },
     }),
+    getPokemonTypesList: builder.query<SelectList[], string>({
+      query: () => {
+        return {
+          url: 'pokemons/types',
+          method: 'GET',
+        };
+      },
+      transformResponse: (value: { data: { type: string }[] }) =>
+        value.data.map((item) => ({
+          value: item.type,
+          label: item.type[0].toUpperCase() + item.type.substring(1),
+        })),
+    }),
+    getPokemonShapesList: builder.query<SelectList[], string>({
+      query: () => {
+        return {
+          url: 'pokemons/shapes',
+          method: 'GET',
+        };
+      },
+      transformResponse: (value: { data: { shape: string }[] }) =>
+        value.data.map((item) => ({
+          value: item.shape,
+          label: item.shape[0].toUpperCase() + item.shape.substring(1),
+        })),
+    }),
   }),
 });
 
-export const { useGetPokemonQuery, useGetInfiniteScrollPokemonQuery } =
-  pokemonApi;
+export const {
+  useGetPokemonQuery,
+  useGetInfiniteScrollPokemonQuery,
+  useGetPokemonTypesListQuery,
+  useGetPokemonShapesListQuery,
+} = pokemonApi;

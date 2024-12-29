@@ -9,9 +9,7 @@ export type SearchState = {
   };
 };
 
-export type UpdateInfiteBaseQuery = {} & Partial<
-  SearchState['infiniteBaseQuery']
->;
+export type UpdateInfiteBaseQuery = Partial<SearchState['infiniteBaseQuery']>;
 
 export type GetPokemonPayload = {
   name?: string;
@@ -42,4 +40,9 @@ export type PokemonInfiniteList = {
   currentQuery: string;
   currentPage: number;
   hasNextPage: boolean;
+};
+
+export type SelectList = {
+  label: string;
+  value: string;
 };

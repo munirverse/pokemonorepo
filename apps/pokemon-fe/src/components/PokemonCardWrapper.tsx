@@ -1,5 +1,5 @@
 import { Grid, Group, Pagination, List, Select } from '@mantine/core';
-import { PokemonBasic } from '../lib/features/search/searchType';
+import { PokemonBasic, SelectList } from '../lib/features/search/searchType';
 import { PokemonCard } from './PokemonCard';
 
 const NavigationPosition = {
@@ -10,33 +10,50 @@ const NavigationPosition = {
 
 export type PokemonCardWrapperProps = {
   list: PokemonBasic[];
+  listTypes?: SelectList[];
+  listShapes?: SelectList[];
   enableFilter?: boolean;
   enablePagination?: boolean;
   navigationPosition?: (typeof NavigationPosition)[keyof typeof NavigationPosition];
   pageTotal?: number;
+  initialPageSize?: number;
   pageSize?: number;
   activePage?: number;
+  activeType?: string;
+  activeShape?: string;
   onChangePageSize?: (pageSize: number) => void;
   onChangeActivePage?: (activePage: number) => void;
+  onChangeType: (type: string) => void;
+  onChangeShape: (shape: string) => void;
 };
 
 export function PokemonCardWrapper({
   list,
+  listTypes = [],
+  listShapes = [],
   onChangePageSize,
   onChangeActivePage,
+  onChangeType,
+  onChangeShape,
   pageTotal,
+  initialPageSize = 8,
   pageSize,
+  activeType = '',
+  activeShape = '',
   activePage = 1,
   enableFilter = true,
   enablePagination = true,
   navigationPosition = 'both',
 }: PokemonCardWrapperProps) {
   // constant
-  const pageSizeList: string[] = pageSize
-    ? Array.from({ length: 3 }, (_, index) =>
-        ((index + 1) * pageSize).toString()
-      )
-    : [];
+  const pageSizeList: string[] =
+    pageSize === initialPageSize
+      ? Array.from({ length: 3 }, (_, index) =>
+          ((index + 1) * pageSize).toString()
+        )
+      : Array.from({ length: 3 }, (_, index) =>
+          ((index + 1) * initialPageSize).toString()
+        );
 
   // handler
   const onChangePageSizeWrapper = (pageSize: string | null) => {
@@ -47,6 +64,18 @@ export function PokemonCardWrapper({
     if (onChangeActivePage) onChangeActivePage(activePage ? activePage : 1);
   };
 
+  const onChangeTypeWrapper = (type: string | null) => {
+    if (onChangeType) onChangeType(type || '');
+    // also reset active page to 1
+    if (onChangeActivePage) onChangeActivePage(1);
+  };
+
+  const onChangeShapeWrapper = (shape: string | null) => {
+    if (onChangeShape) onChangeShape(shape || '');
+    // also reset active page to 1
+    if (onChangeActivePage) onChangeActivePage(1);
+  };
+
   const isNavigationTopEnabled = () =>
     navigationPosition === NavigationPosition.BOTH ||
     navigationPosition === NavigationPosition.TOP;
@@ -55,16 +84,33 @@ export function PokemonCardWrapper({
     navigationPosition === NavigationPosition.BOTH ||
     navigationPosition === NavigationPosition.BOTTOM;
 
-  const isHidden = (condtion: boolean) => ({
-    display: condtion ? 'none' : undefined,
+  const isHidden = (condition: boolean) => ({
+    display: condition ? 'none' : undefined,
   });
 
   const PokemonFilterAndPaginationWrapper = () => (
     <Group justify={'space-between'}>
       <Group style={{ display: enableFilter ? undefined : 'none' }}>
-        <Select data={['Grass']} value={'Grass'} maw={120} />
-        <Select data={['Quadrupped']} value={'Quadrupped'} maw={150} />
-        <Select data={['Yellow']} value={'Yellow'} maw={120} />
+        <Select
+          data={listTypes}
+          value={activeType}
+          maw={120}
+          style={isHidden(!listTypes.length)}
+          onChange={onChangeTypeWrapper}
+          placeholder="Types"
+          searchable
+          clearable
+        />
+        <Select
+          data={listShapes}
+          value={activeShape}
+          maw={120}
+          style={isHidden(!listShapes.length)}
+          onChange={onChangeShapeWrapper}
+          placeholder="Shapes"
+          searchable
+          clearable
+        />
       </Group>
       <Group style={{ display: enablePagination ? undefined : 'none' }}>
         <Select

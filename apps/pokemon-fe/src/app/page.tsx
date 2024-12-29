@@ -3,7 +3,11 @@
 import qs from 'querystring';
 import { useState } from 'react';
 import { Navbar } from '../components/Navbar';
-import { useGetPokemonQuery } from '../lib/features/search/searchHook';
+import {
+  useGetPokemonQuery,
+  useGetPokemonShapesListQuery,
+  useGetPokemonTypesListQuery,
+} from '../lib/features/search/searchHook';
 import { ContentContainer } from '../components/ContentContainer';
 import { Hero } from './Hero';
 import { PokemonCardWrapper } from '../components/PokemonCardWrapper';
@@ -15,13 +19,28 @@ export default function Index() {
 
   const [activePage, setActivePage] = useState<number>(1);
 
+  const [type, setType] = useState<string>('');
+
+  const [shape, setShape] = useState<string>('');
+
   // query api
   const {
     data: pokemons,
     error: isGetPokemonError,
     isLoading: isGetPokemonLoading,
     isSuccess: isGetPokemonSuccess,
-  } = useGetPokemonQuery(qs.stringify({ page: activePage, limit: pageSize }));
+  } = useGetPokemonQuery(
+    qs.stringify({
+      page: activePage,
+      limit: pageSize,
+      ...(type ? { types: type } : {}),
+      ...(shape ? { shape: shape } : {}),
+    })
+  );
+
+  const { data: pokemonTypes } = useGetPokemonTypesListQuery('');
+
+  const { data: pokemonShapes } = useGetPokemonShapesListQuery('');
 
   return (
     <main>
@@ -33,11 +52,17 @@ export default function Index() {
         {isGetPokemonSuccess && (
           <PokemonCardWrapper
             list={pokemons.data}
+            listTypes={pokemonTypes}
+            listShapes={pokemonShapes}
+            activeType={type}
+            activeShape={shape}
             pageTotal={pokemons.pagination.pageTotal}
             pageSize={pageSize}
             activePage={activePage}
             onChangePageSize={setPageSize}
             onChangeActivePage={setActivePage}
+            onChangeType={setType}
+            onChangeShape={setShape}
           />
         )}
       </ContentContainer>
