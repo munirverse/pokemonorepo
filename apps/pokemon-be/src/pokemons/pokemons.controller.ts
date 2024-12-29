@@ -4,7 +4,7 @@ import { PokemonsService } from './pokemons.service';
 import { FindPokemonDto } from './dto/find-pokemon.dto';
 import findPokemonsExample from './examples/find-pokemons.example';
 import getPokemonTypesListExample from './examples/get-pokemon-types-list';
-import getPokemonTypesShapesExample from './examples/get-pokemon-types-shapes';
+import getPokemonTypesShapesExample from './examples/get-pokemon-shapes-list';
 
 @ApiTags('pokemons')
 @Controller('pokemons')
