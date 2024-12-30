@@ -21,6 +21,8 @@ export const pokemonApi = createApi({
           data: value.data,
           currentQuery: params.get('name') || '',
           currentPage: +value.pagination.pageNumber || 1,
+          currentTypes: params.get('types') || '',
+          currentShape: params.get('shape') || '',
           hasNextPage: value.pagination.pageTotal > value.pagination.pageNumber,
         };
       },
@@ -30,12 +32,19 @@ export const pokemonApi = createApi({
       },
       // Always merge incoming data to the cache entry
       merge: (currentCache, newItems) => {
-        if (newItems.currentQuery !== currentCache.currentQuery) {
+        const isNotMerge =
+          newItems.currentQuery !== currentCache.currentQuery ||
+          newItems.currentTypes !== currentCache.currentTypes ||
+          newItems.currentShape !== currentCache.currentShape;
+
+        if (isNotMerge) {
           return newItems;
         } else {
           currentCache.currentPage = newItems.currentPage;
           currentCache.hasNextPage = newItems.hasNextPage;
           currentCache.currentQuery = newItems.currentQuery;
+          currentCache.currentTypes = newItems.currentTypes;
+          currentCache.currentShape = newItems.currentShape;
           currentCache.data.push(...newItems.data);
         }
       },
@@ -46,9 +55,13 @@ export const pokemonApi = createApi({
           new URLSearchParams(previousArg),
         ];
 
+        console.log(currentArg);
+
         const isRefetch =
           currParams.get('name') !== prevParams.get('name') ||
-          currParams.get('page') !== prevParams.get('page');
+          currParams.get('page') !== prevParams.get('page') ||
+          currParams.get('types') !== prevParams.get('types') ||
+          currParams.get('shape') !== prevParams.get('shape');
 
         return isRefetch;
       },

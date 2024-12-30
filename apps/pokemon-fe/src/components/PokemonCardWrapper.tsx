@@ -23,8 +23,8 @@ export type PokemonCardWrapperProps = {
   activeShape?: string;
   onChangePageSize?: (pageSize: number) => void;
   onChangeActivePage?: (activePage: number) => void;
-  onChangeType: (type: string) => void;
-  onChangeShape: (shape: string) => void;
+  onChangeType?: (type: string) => void;
+  onChangeShape?: (shape: string) => void;
 };
 
 export function PokemonCardWrapper({

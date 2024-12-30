@@ -39,6 +39,8 @@ export type PokemonInfiniteList = {
   data: PokemonBasic[];
   currentQuery: string;
   currentPage: number;
+  currentTypes: string;
+  currentShape: string;
   hasNextPage: boolean;
 };
 
