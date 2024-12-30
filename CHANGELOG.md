@@ -1,3 +1,10 @@
+## [0.12.1](https://github.com/munirapp/pokemonorepo/compare/v0.12.0...v0.12.1) (2024-12-30)
+
+
+### Bug Fixes
+
+* **pokemon-fe:** add filter types and shape on infinite scroll search ([0eb22a6](https://github.com/munirapp/pokemonorepo/commit/0eb22a696269a45bb86458517f661a91808d1921))
+
 # [0.12.0](https://github.com/munirapp/pokemonorepo/compare/v0.11.0...v0.12.0) (2024-12-29)
 
 
