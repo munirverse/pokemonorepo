@@ -1,3 +1,10 @@
+# [0.13.0](https://github.com/munirapp/pokemonorepo/compare/v0.12.1...v0.13.0) (2024-12-30)
+
+
+### Features
+
+* **pokemon-fe:** add component error and notfound message card ([4e21cb0](https://github.com/munirapp/pokemonorepo/commit/4e21cb01a6bca902e8cf770a10a8e84b6ab495f8))
+
 ## [0.12.1](https://github.com/munirapp/pokemonorepo/compare/v0.12.0...v0.12.1) (2024-12-30)
 
 
