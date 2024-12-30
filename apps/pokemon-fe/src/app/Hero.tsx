@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Image from 'next/image';
 import { Flex } from '@mantine/core';
 import { useRouter } from 'next/navigation';
@@ -28,14 +29,17 @@ export const Hero = () => {
   return (
     <div className="hero">
       <Flex align={'center'} justify={'center'} direction={'column'}>
-        <Image
-          alt="logo"
-          src={'/logo.png'}
-          sizes="200px"
-          width={200}
-          height={60}
-          priority
-        />
+        <a href="/">
+          <Image
+            alt="logo"
+            src={'/logo.png'}
+            sizes="200px"
+            width={200}
+            height={60}
+            priority
+          />
+        </a>
+
         <SearchInput
           value={search.queryText}
           size={'sm'}

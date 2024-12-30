@@ -12,6 +12,7 @@ import { ContentContainer } from '../components/ContentContainer';
 import { Hero } from './Hero';
 import { PokemonCardWrapper } from '../components/PokemonCardWrapper';
 import './page.scss';
+import { MessageCard } from '../components/MessageCard';
 
 export default function Index() {
   // selector
@@ -48,8 +49,8 @@ export default function Index() {
       <ContentContainer>
         <Hero />
         {isGetPokemonLoading && <pre>Loading...</pre>}
-        {isGetPokemonError && <pre>error</pre>}
-        {isGetPokemonSuccess && (
+        {isGetPokemonError && <MessageCard type={'error'} />}
+        {isGetPokemonSuccess && pokemons?.data?.length > 0 && (
           <PokemonCardWrapper
             list={pokemons.data}
             listTypes={pokemonTypes}
@@ -64,6 +65,9 @@ export default function Index() {
             onChangeType={setType}
             onChangeShape={setShape}
           />
+        )}
+        {isGetPokemonSuccess && pokemons?.data?.length === 0 && (
+          <MessageCard type={'notfound'} />
         )}
       </ContentContainer>
     </main>

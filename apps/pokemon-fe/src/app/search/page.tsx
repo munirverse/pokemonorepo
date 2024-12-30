@@ -13,6 +13,7 @@ import {
   useGetPokemonShapesListQuery,
 } from '../../lib/features/search/searchHook';
 import { PokemonCardWrapper } from '../../components/PokemonCardWrapper';
+import { MessageCard } from '../../components/MessageCard';
 
 function SearchIndex() {
   // selector
@@ -41,6 +42,7 @@ function SearchIndex() {
     data: pokemons,
     isLoading: isGetPokemonLoading,
     isSuccess: isGetPokemonSuccess,
+    isError: isGetPokemonError,
   } = useGetInfiniteScrollPokemonQuery(
     qs.stringify({
       ...search.infiniteBaseQuery,
@@ -104,7 +106,8 @@ function SearchIndex() {
       <Navbar />
       <ContentContainer>
         {isGetPokemonLoading && <pre>Loading...</pre>}
-        {isGetPokemonSuccess && (
+        {isGetPokemonError && <MessageCard type={'error'} />}
+        {isGetPokemonSuccess && pokemons?.data?.length > 0 && (
           <PokemonCardWrapper
             list={pokemons.data}
             listTypes={pokemonTypes}
@@ -117,6 +120,9 @@ function SearchIndex() {
             onChangeShape={setShape}
             onChangeActivePage={onResetActivePage}
           />
+        )}
+        {isGetPokemonSuccess && pokemons?.data?.length === 0 && (
+          <MessageCard type={'notfound'} />
         )}
         <div ref={refObserver} style={{ minHeight: 100 }}></div>
       </ContentContainer>
