@@ -1,3 +1,10 @@
+## [0.13.1](https://github.com/munirverse/pokemonorepo/compare/v0.13.0...v0.13.1) (2024-12-31)
+
+
+### Bug Fixes
+
+* **pokemon-fe:** improve pokemon card wrapper stories ([cb1364b](https://github.com/munirverse/pokemonorepo/commit/cb1364b3d568a4b3e6bdc7dbfc814cf21f39328c))
+
 # [0.13.0](https://github.com/munirapp/pokemonorepo/compare/v0.12.1...v0.13.0) (2024-12-30)
 
 
