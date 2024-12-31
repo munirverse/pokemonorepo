@@ -1,3 +1,10 @@
+# [0.14.0](https://github.com/munirverse/pokemonorepo/compare/v0.13.1...v0.14.0) (2024-12-31)
+
+
+### Features
+
+* **pokemon-fe:** add google analytic scripts ([1d90fb5](https://github.com/munirverse/pokemonorepo/commit/1d90fb587ee831bfe0f8c833460ecc36f0a374f9))
+
 ## [0.13.1](https://github.com/munirverse/pokemonorepo/compare/v0.13.0...v0.13.1) (2024-12-31)
 
 
