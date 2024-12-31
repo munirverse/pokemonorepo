@@ -1,4 +1,5 @@
 import { Manrope } from 'next/font/google';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { createTheme, MantineProvider, ColorSchemeScript } from '@mantine/core';
 
 import { StoreProvider } from './StoreProvider';
@@ -31,6 +32,7 @@ export default function RootLayout({
           <StoreProvider>{children}</StoreProvider>
         </MantineProvider>
       </body>
+      <GoogleAnalytics gaId="G-DYHHK7EQ42" />
     </html>
   );
 }
