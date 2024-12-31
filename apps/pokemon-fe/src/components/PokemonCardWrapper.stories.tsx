@@ -40,7 +40,7 @@ const pokemons = {
       name: 'venusaur',
       types: ['grass', 'poison'],
       color: 'green',
-      shape: 'quadruped',
+      shape: 'upright',
       icon: [
         'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/3.png',
       ],
@@ -57,6 +57,36 @@ const pokemons = {
     },
   ],
 };
+
+const types = [
+  {
+    value: 'grass',
+    label: 'Grass',
+  },
+  {
+    value: 'fire',
+    label: 'Fire',
+  },
+  {
+    value: 'poison',
+    label: 'Poison',
+  },
+];
+
+const shapes = [
+  {
+    value: 'upright',
+    label: 'Upright',
+  },
+  {
+    value: 'quadruped',
+    label: 'Quadruped',
+  },
+  {
+    value: 'blob',
+    label: 'Blob',
+  },
+];
 
 const meta = {
   title: 'Pokemon Card Wrapper',
@@ -86,6 +116,10 @@ const PokemonCardWrapper = (props: PokemonCardWrapperProps) => {
 
   const [activePage, setActivePage] = useState<number>(props.activePage!);
 
+  const [type, setType] = useState<string>(props.activeType!);
+
+  const [shape, setShape] = useState<string>(props.activeShape!);
+
   const onChangeActivePage = (value: number) => {
     action('onChangeActivePage')(value);
     setActivePage(value);
@@ -96,14 +130,31 @@ const PokemonCardWrapper = (props: PokemonCardWrapperProps) => {
     setPageSize(value);
   };
 
+  const oncChangeType = (value: string) => {
+    action('onChangeType')(value);
+    setType(value);
+  };
+
+  const oncChangeShape = (value: string) => {
+    action('onChangeShape')(value);
+    setShape(value);
+  };
+
   return (
     <OriginalPokemonCardWrapper
       list={props.list}
+      listTypes={props.listTypes}
+      activeType={type}
+      listShapes={props.listShapes}
+      activeShape={shape}
       pageTotal={props.pageTotal}
       pageSize={pageSize}
       activePage={activePage}
       onChangeActivePage={onChangeActivePage}
       onChangePageSize={onChangePageSize}
+      onChangeType={oncChangeType}
+      onChangeShape={oncChangeShape}
+      initialPageSize={props.initialPageSize}
     />
   );
 };
@@ -111,9 +162,14 @@ const PokemonCardWrapper = (props: PokemonCardWrapperProps) => {
 export const Default: Story = {
   args: {
     list: pokemons.data,
+    listTypes: types,
+    activeType: types[0].value,
+    listShapes: shapes,
+    activeShape: shapes[0].value,
     pageTotal: pokemons.paginationMeta.pageTotal,
     pageSize: pokemons.paginationMeta.pageSize,
     activePage: pokemons.paginationMeta.pageNumber,
+    initialPageSize: pokemons.paginationMeta.pageSize,
   },
   render: (props) => <PokemonCardWrapper {...props} />,
 };
