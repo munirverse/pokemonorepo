@@ -26,6 +26,9 @@ const preview: Preview = {
       ],
       default: 'Dark',
     },
+    nextjs: {
+      appDirectory: true,
+    },
   },
 };
 

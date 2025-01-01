@@ -13,7 +13,7 @@ const pokemons = {
 };
 
 const meta = {
-  title: 'Pokemon Card',
+  title: 'Components/Pokemon Card',
   tags: ['autodocs', 'components'],
   component: PokemonCard,
   parameters: {

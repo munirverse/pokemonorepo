@@ -43,8 +43,8 @@ export function PokemonCard({
 
   const handleImageSize = () => {
     if (isImageError && !mobileView) return 151;
-    if (isImageError && mobileView) return 101;
-    if (mobileView) return 151;
+    if (isImageError && mobileView) return 71;
+    if (mobileView) return 121;
     return 200;
   };
 

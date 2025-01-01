@@ -9,7 +9,7 @@ import {
 import '@mantine/core/styles.css';
 
 const meta = {
-  title: 'Search Input',
+  title: 'Components/Search Input',
   tags: ['autodocs', 'wrapper components'],
   component: OriginalSearchInput,
   argTypes: { size: { options: ['xs', 'sm', 'md', 'lg', 'xl'] } },

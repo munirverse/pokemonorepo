@@ -47,13 +47,11 @@ const pokemons = {
     },
     {
       id: 4,
-      name: 'charmander',
-      types: ['fire'],
-      color: 'red',
-      shape: 'upright',
-      icon: [
-        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/4.png',
-      ],
+      name: 'unknown',
+      types: ['unknown'],
+      color: '',
+      shape: 'unknown',
+      icon: [''],
     },
   ],
 };
@@ -89,7 +87,7 @@ const shapes = [
 ];
 
 const meta = {
-  title: 'Pokemon Card Wrapper',
+  title: 'Wrapper Components/Pokemon Card Wrapper',
   tags: ['autodocs', 'wrapper components'],
   component: OriginalPokemonCardWrapper,
   parameters: {
@@ -106,6 +104,33 @@ const meta = {
       );
     },
   ],
+  argTypes: {
+    navigationPosition: {
+      options: ['top', 'bottom', 'both'],
+    },
+    onChangePageSize: {
+      table: { disable: true },
+    },
+    onChangeActivePage: {
+      table: { disable: true },
+    },
+    onChangeShape: {
+      table: { disable: true },
+    },
+    onChangeType: {
+      table: { disable: true },
+    },
+    activeType: {
+      table: {
+        readonly: true,
+      },
+    },
+    activeShape: {
+      table: {
+        readonly: true,
+      },
+    },
+  },
 } satisfies Meta<typeof OriginalPokemonCardWrapper>;
 
 export default meta;
@@ -155,6 +180,9 @@ const PokemonCardWrapper = (props: PokemonCardWrapperProps) => {
       onChangeType={oncChangeType}
       onChangeShape={oncChangeShape}
       initialPageSize={props.initialPageSize}
+      navigationPosition={props.navigationPosition}
+      enableFilter={props.enableFilter}
+      enablePagination={props.enablePagination}
     />
   );
 };
@@ -170,6 +198,9 @@ export const Default: Story = {
     pageSize: pokemons.paginationMeta.pageSize,
     activePage: pokemons.paginationMeta.pageNumber,
     initialPageSize: pokemons.paginationMeta.pageSize,
+    enableFilter: true,
+    enablePagination: true,
+    navigationPosition: 'both',
   },
   render: (props) => <PokemonCardWrapper {...props} />,
 };
