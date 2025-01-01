@@ -1,12 +1,14 @@
 'use client';
 
 import qs from 'querystring';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Navbar } from '../components/Navbar';
 import {
   useGetPokemonQuery,
   useGetPokemonShapesListQuery,
   useGetPokemonTypesListQuery,
+  useSearchDispatch,
+  useSearchSelector,
 } from '../lib/features/search/searchHook';
 import { ContentContainer } from '../components/ContentContainer';
 import { Hero } from './Hero';
@@ -23,6 +25,11 @@ export default function Index() {
   const [type, setType] = useState<string>('');
 
   const [shape, setShape] = useState<string>('');
+
+  const search = useSearchSelector();
+
+  // handler
+  const searchDispatch = useSearchDispatch();
 
   // query api
   const {
@@ -43,12 +50,22 @@ export default function Index() {
 
   const { data: pokemonShapes } = useGetPokemonShapesListQuery('');
 
+  // use effet
+  useEffect(() => {
+    // if search state active, disable all of it
+    if (search.active || search.queryText || search.infiniteBaseQuery.name) {
+      searchDispatch.setSearchActiveStatus(false);
+      searchDispatch.setQueryText('');
+      searchDispatch.setInfinteBaseQuery({ name: '', page: 1 });
+    }
+  }, []);
+
   return (
     <main>
-      <Navbar />
+      {!isGetPokemonLoading && <Navbar />}
       <ContentContainer>
-        <Hero />
-        {isGetPokemonLoading && <pre>Loading...</pre>}
+        {!isGetPokemonLoading && <Hero />}
+        {isGetPokemonLoading && <MessageCard type={'loader'} />}
         {isGetPokemonError && <MessageCard type={'error'} />}
         {isGetPokemonSuccess && pokemons?.data?.length > 0 && (
           <PokemonCardWrapper

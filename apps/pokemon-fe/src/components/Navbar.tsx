@@ -1,6 +1,6 @@
 'use client';
 
-import { useDebouncedCallback, useMediaQuery } from '@mantine/hooks';
+import { useMediaQuery } from '@mantine/hooks';
 
 import { DekstopNavbar } from './DesktopNavbar';
 import { MobileNavbar } from './MobileNavbar';

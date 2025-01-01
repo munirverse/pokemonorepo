@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
-import { Card, List, Text, Badge, Group } from '@mantine/core';
+import { Card, List, Text, Badge, Group, Flex } from '@mantine/core';
 // @ts-ignore
 import BrokenImage from '../../public/broken.png';
 import './PokemonCard.scss';
@@ -12,6 +12,7 @@ export type PokemonCardProps = {
   type: string;
   shape: string;
   loading?: boolean;
+  mobileView?: boolean;
 };
 
 export function PokemonCard({
@@ -21,6 +22,7 @@ export function PokemonCard({
   type,
   shape,
   loading = false,
+  mobileView = false,
 }: PokemonCardProps) {
   // selector
   const [isLoading, setLoading] = useState(true);
@@ -31,13 +33,19 @@ export function PokemonCard({
 
   // handler
   const onImageError = () => {
-    console.log('error image');
     setImageSrc(BrokenImage);
     setImageError(true);
   };
 
   const isHidden = (condtion: boolean) => {
     return { display: condtion ? 'none' : undefined };
+  };
+
+  const handleImageSize = () => {
+    if (isImageError && !mobileView) return 151;
+    if (isImageError && mobileView) return 101;
+    if (mobileView) return 151;
+    return 200;
   };
 
   return (
@@ -49,10 +57,10 @@ export function PokemonCard({
             Image is not available
           </Text>
           <Image
-            src={imageSrc}
-            height={isImageError ? 151 : 200}
+            src={imageSrc || '/'}
+            height={handleImageSize()}
             alt={title}
-            width={isImageError ? 151 : 200}
+            width={handleImageSize()}
             onLoad={() => loading || setLoading(false)}
             onError={onImageError}
             style={{ visibility: isLoading ? 'hidden' : undefined }}
@@ -60,23 +68,35 @@ export function PokemonCard({
           />
         </div>
       </Card.Section>
-      <List mt={'xs'}>
+      <Flex
+        mt={'xs'}
+        direction={'column'}
+        align={mobileView ? 'center' : 'start'}
+      >
         <Text size={'xs'} tt={'uppercase'} fw={700}>
           {isLoading ? 'Loading...' : title}
         </Text>
         {isLoading ? (
           <Badge mt={'xs'} color={'gray'} w={30} />
         ) : (
-          <Group gap={'xs'} mt={'xs'}>
-            <Badge color={color === 'white' ? 'gray' : color} size={'xs'}>
+          <Group gap={'xs'} mt={'xs'} justify={mobileView ? 'center' : 'start'}>
+            <Badge
+              color={color === 'white' ? 'gray' : color}
+              size={mobileView ? 'md' : 'xs'}
+              miw={mobileView ? 100 : undefined}
+            >
               {type}
             </Badge>
-            <Badge color={'gray'} size={'xs'}>
+            <Badge
+              color={'gray'}
+              size={mobileView ? 'md' : 'xs'}
+              miw={mobileView ? 100 : undefined}
+            >
               {shape || 'unknown'}
             </Badge>
           </Group>
         )}
-      </List>
+      </Flex>
     </Card>
   );
 }

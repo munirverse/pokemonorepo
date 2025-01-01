@@ -103,9 +103,9 @@ function SearchIndex() {
 
   return (
     <main>
-      <Navbar />
+      {isGetPokemonSuccess && <Navbar />}
       <ContentContainer>
-        {isGetPokemonLoading && <pre>Loading...</pre>}
+        {isGetPokemonLoading && <MessageCard type={'loader'} />}
         {isGetPokemonError && <MessageCard type={'error'} />}
         {isGetPokemonSuccess && pokemons?.data?.length > 0 && (
           <PokemonCardWrapper

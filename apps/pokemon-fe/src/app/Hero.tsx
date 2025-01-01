@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Flex } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { useRouter } from 'next/navigation';
 import { IconSearch } from '@tabler/icons-react';
 import { SearchInput } from '../components/SearchInput';
@@ -15,6 +16,8 @@ export const Hero = () => {
   const router = useRouter();
 
   const search = useSearchSelector();
+
+  const isMobile = useMediaQuery('(max-width: 890px)');
 
   // dispatch
   const searchDispatch = useSearchDispatch();
@@ -44,7 +47,7 @@ export const Hero = () => {
           value={search.queryText}
           size={'sm'}
           placeholder="Search pokemon name"
-          miw={400}
+          miw={isMobile ? 300 : 400}
           leftSection={<IconSearch size={16} />}
           onChange={searchDispatch.setQueryText}
           onKeydown={onSearchInputKeydown}

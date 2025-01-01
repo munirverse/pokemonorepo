@@ -43,9 +43,6 @@ export const DekstopNavbar = () => {
   });
 
   const onLogoClick = () => {
-    searchDispatch.setQueryText('');
-    searchDispatch.setSearchActiveStatus(false);
-    searchDispatch.setInfinteBaseQuery({ name: '', page: 1 });
     router.push('/');
   };
 
