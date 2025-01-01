@@ -1,3 +1,10 @@
+## [0.14.2](https://github.com/munirverse/pokemonorepo/compare/v0.14.1...v0.14.2) (2025-01-01)
+
+
+### Bug Fixes
+
+* **pokemon-fe:** improving storybook components ([fd100d3](https://github.com/munirverse/pokemonorepo/commit/fd100d38315a1bb57c944ca37b03f2823991ebd8))
+
 ## [0.14.1](https://github.com/munirverse/pokemonorepo/compare/v0.14.0...v0.14.1) (2025-01-01)
 
 
