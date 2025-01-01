@@ -1,3 +1,10 @@
+## [0.14.1](https://github.com/munirverse/pokemonorepo/compare/v0.14.0...v0.14.1) (2025-01-01)
+
+
+### Bug Fixes
+
+* **pokemon-fe:** improve mobile view ([5f8097d](https://github.com/munirverse/pokemonorepo/commit/5f8097dfe77c4b7c99ac1a9fdf5015f6d841cbd5))
+
 # [0.14.0](https://github.com/munirverse/pokemonorepo/compare/v0.13.1...v0.14.0) (2024-12-31)
 
 
