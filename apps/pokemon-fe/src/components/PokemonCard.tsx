@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
-import { Card, List, Text, Badge, Group, Flex } from '@mantine/core';
+import { Card, Text, Badge, Group, Flex } from '@mantine/core';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import BrokenImage from '../../public/broken.png';
 import './PokemonCard.scss';

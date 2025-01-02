@@ -12,7 +12,7 @@
     "src/components/**/*.stories.js",
     "src/components/**/*.stories.jsx",
     "src/components/**/*.stories.tsx",
-    "src/components/**/*.stories.mdx",
+    "../../docs/**/*.mdx",
     ".storybook/*.js",
     ".storybook/*.ts"
   ]
