@@ -29,6 +29,17 @@ const preview: Preview = {
     nextjs: {
       appDirectory: true,
     },
+    options: {
+      storySort: {
+        order: [
+          'About',
+          'Software Architecture',
+          'Backend Design Pattern',
+          'Frontend Design Pattern',
+          'Components',
+        ],
+      },
+    },
   },
 };
 
