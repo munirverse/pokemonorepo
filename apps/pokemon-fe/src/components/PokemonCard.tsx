@@ -34,7 +34,7 @@ export function PokemonCard({
 
   // handler
   const onImageError = () => {
-    setImageSrc(BrokenImage);
+    setImageSrc(BrokenImage.src);
     setImageError(true);
   };
 
