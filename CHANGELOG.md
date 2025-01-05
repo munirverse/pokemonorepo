@@ -1,3 +1,10 @@
+## [0.14.3](https://github.com/munirverse/pokemonorepo/compare/v0.14.2...v0.14.3) (2025-01-05)
+
+
+### Bug Fixes
+
+* **pokemon-fe:** fix StaticImageData issue when build ([f9400a0](https://github.com/munirverse/pokemonorepo/commit/f9400a00398c238f854486c72f85e27f8c9dfd77))
+
 ## [0.14.2](https://github.com/munirverse/pokemonorepo/compare/v0.14.1...v0.14.2) (2025-01-01)
 
 
