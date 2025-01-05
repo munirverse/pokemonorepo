@@ -126,6 +126,7 @@ export function PokemonCardWrapper({
           onChange={onChangePageSizeWrapper}
           style={isHidden(isMobile !== true || !enablePagination)}
           size={'xs'}
+          placeholder="Page Size Mobile"
         />
       </Group>
       <Group style={{ display: enablePagination ? undefined : 'none' }}>
@@ -135,6 +136,7 @@ export function PokemonCardWrapper({
           onChange={onChangePageSizeWrapper}
           maw={70}
           style={isHidden(!pageSizeList.length || isMobile === true)}
+          placeholder="Page Size Desktop"
         />
         <Pagination
           value={activePage}

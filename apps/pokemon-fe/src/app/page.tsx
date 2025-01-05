@@ -58,6 +58,7 @@ export default function Index() {
       searchDispatch.setQueryText('');
       searchDispatch.setInfinteBaseQuery({ name: '', page: 1 });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

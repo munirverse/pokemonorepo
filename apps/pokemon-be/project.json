@@ -42,6 +42,12 @@
           "args": ["{projectRoot}/prisma/seeds/species"]
         }
       }
+    },
+    "start": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "pokemon-be:build:production"
+      }
     }
   }
 }
