@@ -74,6 +74,7 @@ export const DekstopNavbar = () => {
               style={isHidden(!search.active)}
               onChange={searchDispatch.setQueryText}
               onKeydown={onSearchInputKeydown}
+              placeholder="Search pokemon name"
             />
           </section>
           <section>
