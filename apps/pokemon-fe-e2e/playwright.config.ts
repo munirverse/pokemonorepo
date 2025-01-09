@@ -1,7 +1,12 @@
+import * as path from 'path';
 import { defineConfig, devices } from '@playwright/test';
+import * as dotenv from 'dotenv';
 import { nxE2EPreset } from '@nx/playwright/preset';
 
 import { workspaceRoot } from '@nx/devkit';
+
+// Read from ".env" file.
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 // For CI, you may want to set BASE_URL to the deployed application.
 const baseURL = process.env['BASE_URL'] || 'http://127.0.0.1:3000';

@@ -3,9 +3,10 @@ import { test, expect } from '@playwright/test';
 test.describe('Searchpage E2E Test', () => {
   test('should load the searchpage with correct components', async ({
     page,
+    baseURL,
   }) => {
     // go to FE url
-    await page.goto('http://localhost:3000/search?q=pikachu');
+    await page.goto(`${baseURL}/search?q=pikachu`);
 
     // check search input on navbar is visible and have correct value
     const navbarSearchInput = page
@@ -24,9 +25,10 @@ test.describe('Searchpage E2E Test', () => {
 
   test('should request certain response when infinite scroll was triggered', async ({
     page,
+    baseURL,
   }) => {
     // go to FE url
-    await page.goto('http://localhost:3000/search?q=pi');
+    await page.goto(`${baseURL}/search?q=pi`);
 
     // init promise api response function
     const resPromise = (urlTarget: string) =>

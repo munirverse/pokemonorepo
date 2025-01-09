@@ -3,9 +3,10 @@ import { test, expect } from '@playwright/test';
 test.describe('Homepage E2E Tests', () => {
   test('should load the homepage with the correct components', async ({
     page,
+    baseURL,
   }) => {
     // go to FE url
-    await page.goto('http://localhost:3000/');
+    await page.goto(baseURL);
 
     // Check Navbar is visible & provide some a links
     const navbar = page.locator('nav.navbar-desktop');
@@ -34,9 +35,10 @@ test.describe('Homepage E2E Tests', () => {
 
   test('should redirect to search page when input search is submit', async ({
     page,
+    baseURL,
   }) => {
     // go to FE url
-    await page.goto('http://localhost:3000/');
+    await page.goto(baseURL);
 
     // get and submit input search
     const searchInput = page.getByRole('textbox', {
@@ -47,16 +49,17 @@ test.describe('Homepage E2E Tests', () => {
 
     await searchInput.press('Enter');
 
-    await page.waitForURL('http://localhost:3000/search?q=pikachu');
+    await page.waitForURL(`${baseURL}/search?q=pikachu`);
 
-    expect(page.url()).toBe('http://localhost:3000/search?q=pikachu');
+    expect(page.url()).toBe(`${baseURL}/search?q=pikachu`);
   });
 
   test('should request certain response when filter and pagination was selected', async ({
     page,
+    baseURL,
   }) => {
     // go to FE url
-    await page.goto('http://localhost:3000/');
+    await page.goto(baseURL);
 
     // init promise api response function
     const resPromise = (urlTarget: string) =>
