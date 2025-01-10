@@ -13,11 +13,18 @@ const nextConfig = {
     svgr: false,
   },
   images: {
-    domains: ['raw.githubusercontent.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com',
+        pathname: '/**', // Allow all paths from the domain
+      },
+    ],
   },
   experimental: {
     optimizePackageImports: ['@mantine/core', '@mantine/hooks'],
   },
+  output: 'standalone',
 };
 
 const plugins = [
