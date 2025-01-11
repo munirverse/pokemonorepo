@@ -10,6 +10,11 @@
       "options": {
         "port": 4400
       }
+    },
+    "static-storybook": {
+      "options": {
+        "port": 4400
+      }
     }
   }
 }
