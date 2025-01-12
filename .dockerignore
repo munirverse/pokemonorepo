@@ -1,0 +1,15 @@
+.nx
+.github
+.husky
+.next 
+.vscode
+coverage
+data
+node_modules
+.releaserc
+CHANGELOG.md 
+commitlint.config.js
+docker-compose.yml
+license
+README.md 
+storybook-static

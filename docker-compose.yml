@@ -10,10 +10,40 @@ services:
     shm_size: 128mb
     # or set shared memory limit when deploy via swarm stack
     volumes:
-      - ./data/postgres:/var/lib/postgresql
+      - ./data/postgres:/var/lib/postgresql/data
     ports:
       - 5432:5432
     environment:
       POSTGRES_PASSWORD: admin123
       POSTGRES_USER: admin 
       POSTGRES_DB: pokemonorepo
+    networks:
+      - pokemon_network
+
+  pokemon_fe:
+    image: pokemonorepo/fullstack
+    ports:
+      - 3000:3000
+    entrypoint: npx nx run pokemon-fe:start 
+    depends_on: ['pokemon_be']
+
+  pokemon_be:
+    image: pokemonorepo/fullstack
+    working_dir: /app
+    ports:
+      - 5300:5300
+    entrypoint: npx nx run pokemon-be:start
+    depends_on: ['pokemon_db']
+    networks: 
+      - pokemon_network
+
+  pokemon_storybook:
+    image: pokemonorepo/fullstack
+    working_dir: /app
+    ports: 
+      - 4400:4400
+    entrypoint: npx nx run pokemon-fe:static-storybook -- --host=0.0.0.0
+
+networks:
+  pokemon_network:
+    driver: bridge
