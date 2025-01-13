@@ -25,6 +25,15 @@ const nextConfig = {
     optimizePackageImports: ['@mantine/core', '@mantine/hooks'],
   },
   output: 'standalone',
+  async rewrites() {
+    const backendURI = process.env.BACKEND_URI;
+    return [
+      {
+        source: '/data/api/:path*',
+        destination: `${backendURI}/:path*`,
+      },
+    ];
+  },
 };
 
 const plugins = [

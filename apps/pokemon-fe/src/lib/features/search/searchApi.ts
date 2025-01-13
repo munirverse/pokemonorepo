@@ -3,7 +3,7 @@ import { GetPokemonRes, PokemonInfiniteList, SelectList } from './searchType';
 
 export const pokemonApi = createApi({
   reducerPath: 'pokemonApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5300/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: '/data/api' }),
   endpoints: (builder) => ({
     getPokemon: builder.query<GetPokemonRes, string>({
       query: (params) => {
