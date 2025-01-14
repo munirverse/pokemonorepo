@@ -26,11 +26,11 @@ const nextConfig = {
   },
   output: 'standalone',
   async rewrites() {
-    const backendURI = process.env.BACKEND_URI;
+    const backendLocalUrl = process.env.BE_LOCAL_URL;
     return [
       {
         source: '/data/api/:path*',
-        destination: `${backendURI}/:path*`,
+        destination: `${backendLocalUrl}/:path*`,
       },
     ];
   },
