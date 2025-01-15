@@ -1,0 +1,30 @@
+name: Package Release
+on: 
+  workflow_dispatch:
+permissions: 
+  contents: write
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Login to ghcr
+        run: echo ${{secrets.CR_PAT}} | docker login  ghcr.io -u munirapp --password-stdin
+      - name: Build docker image tag
+        run: |
+          GIT_SHA=$(git rev-parse --short HEAD)
+          TIMESTAMP=$(date +%Y%m%d%H%M%S)
+          echo "TAG=${GIT_SHA}-${TIMESTAMP}" >> $GITHUB_ENV
+      - name: Build with env arguments
+        run: |
+          BUILD_ARGS="\
+          --build-arg FE_URL=${{secrets.FE_URL}} \
+          --build-arg BE_PORT=${{secrets.BE_PORT}} \ 
+          --build-arg FE_PORT=${{secrets.FE_PORT}} \
+          --build-arg BE_LOCAL_URL=${{secrets.BE_LOCAL_URL}}
+          --build-arg FE_LOCAL_URL=${{secrets.FE_LOCAL_URL}}"
+          docker build $BUILD_ARGS -t ghcr.io/munirverse/pokemonorepo:${{env.TAG}} . --platform linux/amd64
+      - name: Push to ghcr
+        run: docker push ghcr.io/munirverse/pokemonorepo:${{env.TAG}}
