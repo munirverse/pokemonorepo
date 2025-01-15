@@ -17,14 +17,19 @@ jobs:
           GIT_SHA=$(git rev-parse --short HEAD)
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
           echo "TAG=${GIT_SHA}-${TIMESTAMP}" >> $GITHUB_ENV
+      - name: Build env files
+        run: | 
+              cat <<EOF > .env
+              FE_URL=${{ secrets.FE_URL }}
+              BE_PORT=${{ secrets.BE_PORT }}
+              FE_PORT=${{ secrets.FE_PORT }}
+              BE_LOCAL_URL=${{ secrets.BE_LOCAL_URL }}
+              FE_LOCAL_URL=${{ secrets.FE_LOCAL_URL }}
+              EOF
       - name: Build with env arguments
         run: |
           docker build \
-          --build-arg FE_URL=${{ secrets.FE_URL }} \
-          --build-arg BE_PORT=${{ secrets.BE_PORT }} \
-          --build-arg FE_PORT=${{ secrets.FE_PORT }} \
           --build-arg BE_LOCAL_URL=${{ secrets.BE_LOCAL_URL }} \
-          --build-arg FE_LOCAL_URL=${{ secrets.FE_LOCAL_URL }} \
           -t ghcr.io/munirverse/pokemonorepo:${{ env.TAG }} \
           . --platform linux/amd64
       - name: Push to ghcr

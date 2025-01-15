@@ -18,6 +18,12 @@ RUN npx nx reset
 # Generate prisma schema
 RUN npx prisma generate --schema apps/pokemon-be/prisma/schema.prisma
 
+# Define build-time arguments
+ARG BE_LOCAL_URL
+
+# Pass the build args as environment variables
+ENV BE_LOCAL_URL=$BE_LOCAL_URL
+
 # Build frontend
 RUN npx nx run pokemon-fe:build:production --verbose
 
