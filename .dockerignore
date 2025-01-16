@@ -13,3 +13,4 @@ docker-compose.yml
 license
 README.md 
 storybook-static
+.env
