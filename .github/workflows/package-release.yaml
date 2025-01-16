@@ -1,27 +1,48 @@
 name: Package Release
+
 on: 
   workflow_dispatch:
+
 permissions: 
   contents: write
+
 jobs:
   build-release:
     runs-on: ubuntu-latest
     environment: production
+
     steps:
+      # Step 1: Checkout code
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      # Step 2: Login to GitHub Container Registry (ghcr)
       - name: Login to ghcr
-        run: echo "${{ secrets.CR_PAT }}" | docker login  ghcr.io -u munirapp --password-stdin
+        run: |
+          echo "${{ secrets.CR_PAT }}" | docker login ghcr.io -u munirapp --password-stdin
+
+      # Step 3: Generate unique Docker image tag
       - name: Build docker image tag
+        id: tag
         run: |
           GIT_SHA=$(git rev-parse --short HEAD)
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
-          echo "TAG=${GIT_SHA}-${TIMESTAMP}" >> $GITHUB_ENV
+          TAG="${GIT_SHA}-${TIMESTAMP}"
+          echo "TAG=$TAG" >> $GITHUB_ENV
+          echo "Generated tag: $TAG"
+
+      # Step 4: Build Docker image with environment arguments
       - name: Build with env arguments
         run: |
           docker build \
           --build-arg BE_LOCAL_URL=${{ secrets.BE_LOCAL_URL }} \
           -t ghcr.io/munirverse/pokemonorepo:${{ env.TAG }} \
-          . --platform linux/amd64
+          -t ghcr.io/munirverse/pokemonorepo:latest \
+          --platform linux/amd64 \
+          .
+
+      # Step 5: Push image to GitHub Container Registry
       - name: Push to ghcr
-        run: docker push ghcr.io/munirverse/pokemonorepo:${{ env.TAG }}
+        run: |
+          docker push ghcr.io/munirverse/pokemonorepo:${{ env.TAG }}
+          docker push ghcr.io/munirverse/pokemonorepo:latest
