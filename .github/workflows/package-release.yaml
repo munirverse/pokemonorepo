@@ -6,7 +6,7 @@ permissions:
 jobs:
   build-release:
     runs-on: ubuntu-latest
-  
+    environment: production
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -17,15 +17,6 @@ jobs:
           GIT_SHA=$(git rev-parse --short HEAD)
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
           echo "TAG=${GIT_SHA}-${TIMESTAMP}" >> $GITHUB_ENV
-      - name: Build env files
-        run: | 
-              cat <<EOF > .env
-              FE_URL=${{ secrets.FE_URL }}
-              BE_PORT=${{ secrets.BE_PORT }}
-              FE_PORT=${{ secrets.FE_PORT }}
-              BE_LOCAL_URL=${{ secrets.BE_LOCAL_URL }}
-              FE_LOCAL_URL=${{ secrets.FE_LOCAL_URL }}
-              EOF
       - name: Build with env arguments
         run: |
           docker build \
