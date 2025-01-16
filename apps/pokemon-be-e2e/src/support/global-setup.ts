@@ -1,4 +1,9 @@
 import { spawn } from 'child_process';
+import * as path from 'path';
+import { config as dotenvConfig } from 'dotenv';
+
+// Read from ".env" file.
+dotenvConfig({ path: path.resolve(process.cwd(), '.env') });
 
 /* eslint-disable */
 var __TEARDOWN_MESSAGE__: string;
