@@ -1,0 +1,66 @@
+name: Deployment Release
+on: 
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - Package Release
+    types:
+      - completed
+permissions: 
+  contents: write
+jobs:
+  start-runner:
+    name: Start Self-Hosted Runner
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+      - name: Start Runner on VPS
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} 'bash -s' << 'EOF'
+          sudo systemctl start actions.runner.munirverse-pokemonorepo.pokemonorepo
+          sleep 5
+          EOF
+
+  build-and-deploy:
+    name: Build env and deploy to production
+    runs-on: pokemonorepo-hosted
+    environment: production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build env files
+        run: | 
+              cat <<EOF > .env
+              DATABASE_URL=${{ secrets.DATABASE_URL }}
+              POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+              POSTGRES_USER=${{ secrets.POSTGRES_USER }} 
+              POSTGRES_DB=${{ secrets.POSTGRES_DB }}
+              FE_URL=${{ secrets.FE_URL }}
+              BE_LOCAL_URL=${{ secrets.BE_LOCAL_URL }}
+              FE_LOCAL_URL=${{ secrets.FE_LOCAL_URL }}
+              BE_PORT=${{ secrets.BE_PORT }}
+              EOF
+      - name: Pull the lastest image
+        run: docker pull ghcr.io/munirverse/pokemonorepo:latest
+      - name: Recreate the container
+        run: docker-compose build && docker-compose up -d
+    
+  stop-runner:
+    name: Stop Self-Hosted Runner
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+      - name: Stop Runner on VPS
+        run: ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} 'sudo systemctl stop actions.runner.munirverse-pokemonorepo.pokemonorepo'
