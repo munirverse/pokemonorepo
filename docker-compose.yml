@@ -12,7 +12,7 @@ services:
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - 127.0.0.1:5432:5432
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_USER=${POSTGRES_USER}
@@ -25,7 +25,7 @@ services:
     image: ghcr.io/munirverse/pokemonorepo:latest
     platform: 'linux/amd64'
     ports:
-      - 3000:3000
+      - 127.0.0.1:3000:3000
     entrypoint: npx nx run pokemon-fe:start 
     depends_on: ['pokemon_be']
     networks: 
@@ -36,7 +36,7 @@ services:
     platform: 'linux/amd64'
     working_dir: /app
     ports:
-      - 5300:5300
+      - 127.0.0.1:5300:5300
     entrypoint: npx nx run pokemon-be:start
     depends_on: ['pokemon_db']
     networks: 
@@ -53,7 +53,7 @@ services:
     platform: 'linux/amd64'
     working_dir: /app
     ports: 
-      - 4400:4400
+      - 127.0.0.1:4400:4400
     entrypoint: npx nx run pokemon-fe:static-storybook -- --host=0.0.0.0
 
 networks:
