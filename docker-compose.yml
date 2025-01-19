@@ -53,8 +53,8 @@ services:
     platform: 'linux/amd64'
     working_dir: /app
     ports: 
-      - 127.0.0.1:4400:4400
-    entrypoint: npx nx run pokemon-fe:static-storybook -- --host=0.0.0.0
+      - 4400:4400
+    entrypoint: npx nx run pokemon-fe:static-storybook
 
 networks:
   pokemon_db_network:
