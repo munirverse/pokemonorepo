@@ -22,7 +22,7 @@ jobs:
           echo "${{ secrets.SERVER_IP }}" > ~/.ssh/known_hosts
       - name: Start Runner on VPS
         run: |
-          ssh -vvv -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} 'bash -s' << 'EOF'
+          ssh -o StrictHostKeyChecking=no -p ${{ secrets.SERVER_SSH_PORT }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} 'bash -s' << 'EOF'
           sudo systemctl start actions.runner.munirverse-pokemonorepo.pokemonorepo
           sleep 5
           EOF
@@ -31,6 +31,7 @@ jobs:
     name: Build env and deploy to production
     runs-on: pokemonorepo-hosted
     environment: production
+    needs: start-runner
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -55,6 +56,7 @@ jobs:
     name: Stop Self-Hosted Runner
     runs-on: ubuntu-latest
     environment: production
+    needs: build-and-deploy
     steps:
       - name: Set up SSH key
         run: |
@@ -63,4 +65,4 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           echo "${{ secrets.SERVER_IP }}" > ~/.ssh/known_hosts
       - name: Stop Runner on VPS
-        run: ssh -vvv -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} 'sudo systemctl stop actions.runner.munirverse-pokemonorepo.pokemonorepo'
+        run: ssh -o StrictHostKeyChecking=no -p ${{ secrets.SERVER_SSH_PORT }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} 'sudo systemctl stop actions.runner.munirverse-pokemonorepo.pokemonorepo'
