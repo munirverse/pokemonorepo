@@ -46,7 +46,8 @@ jobs:
               BE_LOCAL_URL=${{ secrets.BE_LOCAL_URL }}
               FE_LOCAL_URL=${{ secrets.FE_LOCAL_URL }}
               BE_PORT=${{ secrets.BE_PORT }}
-              EOF
+              POSTGRES_VOLUME_PATH=${{ secrets.POSTGRES_VOLUME_PATH }}
+              EOF 
       - name: Pull the lastest image
         run: docker pull ghcr.io/munirverse/pokemonorepo:latest
       - name: Recreate the container
