@@ -55,7 +55,7 @@ services:
     ports: 
       - 4400:4400
     entrypoint: npx nx run pokemon-fe:static-storybook -- --host=0.0.0.0
-    depends_on: ['pokemon-fe']
+    depends_on: ['pokemon_fe']
 
 
 networks:
