@@ -10,7 +10,7 @@ services:
     shm_size: 128mb
     # or set shared memory limit when deploy via swarm stack
     volumes:
-      - ./data/postgres:/var/lib/postgresql/data
+      - ${POSTGRES_VOLUME_PATH}:/var/lib/postgresql/data
     ports:
       - 127.0.0.1:5432:5432
     environment:
