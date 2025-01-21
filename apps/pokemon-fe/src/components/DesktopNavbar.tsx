@@ -9,6 +9,7 @@ import {
   IconMessageQuestion,
   IconFile3d,
   IconAdjustmentsHorizontal,
+  IconBrandGithub,
 } from '@tabler/icons-react';
 
 import './DesktopNavbar.scss';
@@ -21,11 +22,20 @@ import {
 export const DekstopNavbar = () => {
   // constant
   const links = [
-    { link: '/', title: 'About', icon: <IconMessageQuestion size={16} /> },
     {
-      link: '/',
+      link: 'https://pokemonorepo.munirverse.com/docs/storybook',
+      title: 'About',
+      icon: <IconMessageQuestion size={16} />,
+    },
+    {
+      link: 'https://pokemonorepo.munirverse.com/docs/api-specs',
       title: 'API Documentation',
       icon: <IconFile3d size={16} />,
+    },
+    {
+      link: 'https://github.com/munirverse/pokemonorepo',
+      title: 'Github',
+      icon: <IconBrandGithub size={16} />,
     },
   ];
 
