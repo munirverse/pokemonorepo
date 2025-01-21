@@ -15,6 +15,7 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
   const config = new DocumentBuilder()
     .setTitle('Pokemonorepo API Specs')
+    .addServer(process.env.BE_URL)
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
