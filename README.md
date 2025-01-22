@@ -4,8 +4,12 @@
 A full-stack pokédex project using Nx, NestJS, and Next.js
 
 ## Table of Contents
-* [Background Stories](#background-stories)
-* [Installation](#installation)
+- [Background Stories](#background-stories)
+- [Installation](#installation)
+  - [Manual Installation](#manual-installation)
+  - [With Docker](#with-docker)
+  - [Running Tests](#running-tests)
+- [License](#license)
 
 ## Background Stories
 **Pokemonorepo** is created as a mini portfolio project as well as a learning medium for myself and others who are starting to learn about full-stack web development.
@@ -83,3 +87,5 @@ running e2e test
 npx nx run pokemon-be-e2e:e2e # backend e2e test
 npx nx run pokemon-fe-e2e:e2e # frontend e2e test 
 ```
+## License
+This project is licensed under the MIT License. See the [LICENSE](./license) file for more details.
