@@ -21,25 +21,30 @@ A project theme like Pokédex offers a more enjoyable experience while providing
 
 ## Installation
 ### Manual Installation
-clone the pokemonorepo's repository
+Clone the pokemonorepo's repository
 ```bash
 git clone https://github.com/munirverse/pokemonorepo.git && cd pokemonorepo
 ```
-install npm dependencies
+Install npm dependencies
 ```bash
 npm install
 ```
-copy and distribute env file configuration
+Copy and distribute env file configuration
 ```bash
 cp .env.example .env
 cp .env.example ./apps/pokemon-fe/.env
 cp .env.example ./apps/pokemon-be/.env
 ```
-adjust the env files to match with your local environment (especially the db connections). Run this command below to start both frontend and backend service pararelly (Notes: frontend instance need to take several times to up because build process)
+Adjust the env files to match with your local environment (especially the db connections). Afterward, run this command to migrate tables and seeds the requirement data
+```bash
+npx nx run pokemon-be:migrate
+npx nx run pokemon-be:pokemons && npx nx run pokemon-be:details && npx nx run pokemon-be:shapes
+```
+Run this command below to start both frontend and backend service pararelly (Notes: frontend instance need to take several times to up because build process)
 ```bash
 npx nx run-many -t start
 ```
-or run each instance separately in dev mode
+Or run each instance separately in dev mode
 ```bash
 # backend
 npx nx run pokemon-be:serve
@@ -47,15 +52,34 @@ npx nx run pokemon-be:serve
 npx nx run pokemon-fe:dev 
 ```
 ### With Docker 
-clone the pokemonorepo's repository
+Clone the pokemonorepo's repository
 ```bash
 git clone https://github.com/munirverse/pokemonorepo.git && cd pokemonorepo
 ```
-copy env file
+Copy env file
 ```bash
 cp .env.example .env
 ```
-run docker-compose command
+Run this command to migrate tables and seeds the requirement data
+```bash
+npx nx run pokemon-be:migrate
+npx nx run pokemon-be:pokemons && npx nx run pokemon-be:details && npx nx run pokemon-be:shapes
+```
+Run docker-compose command
 ```bash
 docker-compose build && docker-compose up -d
+```
+### Running Tests
+running backend unit test 
+```bash
+npx nx run pokemon-be:test
+```
+running sharing package unit test
+```bash
+npx nx run shared:test
+```
+running e2e test 
+```bash
+npx nx run pokemon-be-e2e:e2e # backend e2e test
+npx nx run pokemon-fe-e2e:e2e # frontend e2e test 
 ```
