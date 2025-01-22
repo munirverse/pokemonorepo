@@ -3,6 +3,10 @@
 </p>
 A full-stack pokédex project using Nx, NestJS, and Next.js
 
+## Table of Contents
+* [Background Stories](#background-stories)
+* [Installation](#installation)
+
 ## Background Stories
 **Pokemonorepo** is created as a mini portfolio project as well as a learning medium for myself and others who are starting to learn about full-stack web development.
 
@@ -15,3 +19,43 @@ Because with open source code, anyone can analyze how my code works and provide 
 ### Why choose a Pokédex?
 A project theme like Pokédex offers a more enjoyable experience while providing space for exploration with various technical features, such as search functionality, data filtering, pagination, and other features that challenge me to be creative.
 
+## Installation
+### Manual Installation
+clone the pokemonorepo's repository
+```bash
+git clone https://github.com/munirverse/pokemonorepo.git && cd pokemonorepo
+```
+install npm dependencies
+```bash
+npm install
+```
+copy and distribute env file configuration
+```bash
+cp .env.example .env
+cp .env.example ./apps/pokemon-fe/.env
+cp .env.example ./apps/pokemon-be/.env
+```
+adjust the env files to match with your local environment (especially the db connections). Run this command below to start both frontend and backend service pararelly (Notes: frontend instance need to take several times to up because build process)
+```bash
+npx nx run-many -t start
+```
+or run each instance separately in dev mode
+```bash
+# backend
+npx nx run pokemon-be:serve
+# frontend
+npx nx run pokemon-fe:dev 
+```
+### With Docker 
+clone the pokemonorepo's repository
+```bash
+git clone https://github.com/munirverse/pokemonorepo.git && cd pokemonorepo
+```
+copy env file
+```bash
+cp .env.example .env
+```
+run docker-compose command
+```bash
+docker-compose build && docker-compose up -d
+```
