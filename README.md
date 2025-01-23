@@ -9,6 +9,13 @@ A full-stack pokédex project using Nx, NestJS, and Next.js
   - [Manual Installation](#manual-installation)
   - [With Docker](#with-docker)
   - [Running Tests](#running-tests)
+- [Technology Highlights](#technology-highlights)
+  - [Techstack](#techstack)
+  - [Backend](#backend)
+  - [Frontend](#frontend)
+  - [DevOps](#devops)
+  - [Others](#others)
+  - [Features](#features)
 - [License](#license)
 
 ## Background Stories
@@ -87,5 +94,41 @@ running e2e test
 npx nx run pokemon-be-e2e:e2e # backend e2e test
 npx nx run pokemon-fe-e2e:e2e # frontend e2e test 
 ```
+
+
+## Technology Highlights
+### Techstack
+- Nest.js
+- Next.js
+- Nx
+- Docker
+- PostgreSQL
+- Prisma
+- Jest
+- Playwright
+- Storybook
+### Backend 
+- Nest.js Best practices
+- Prisma Integration with Migration and Seeder
+- Nest.js Validation with Class transformer
+- Nest.js Swagger API Documentation
+- Unit testing with Jest
+- Backend End to End (e2e) Testing Integration
+### Frontend
+- Next.js Best practices
+- Web components with Mantine
+- Redux design patterns
+- Storybook Documentations
+- Frontend End to End (e2e) Testing with Playwright
+### DevOps
+- Containerization with Docker
+- Github Actions CI/CD 
+### Others
+- Manage monorepo project with Nx
+- Precommit management with Husky
+### Features
+- Filtering & pagination
+- Search 
+- Infinite scroll
 ## License
 This project is licensed under the MIT License. See the [LICENSE](./license) file for more details.
