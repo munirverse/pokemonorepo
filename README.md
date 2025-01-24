@@ -3,6 +3,10 @@
 </p>
 A full-stack pokédex project using Nx, NestJS, and Next.js
 
+- Web Demo: [https://pokemonorepo.munirverse.com](https://pokemonorepo.munirverse.com)
+- Storybook: [https://pokemonorepo.munirverse.com/docs/storybook](https://pokemonorepo.munirverse.com/docs/storybook)
+- API Specs: [https://pokemonorepo.munirverse.com/docs/api-specs](https://pokemonorepo.munirverse.com/docs/api-specs)
+
 ## Table of Contents
 - [Background Stories](#background-stories)
 - [Installation](#installation)
