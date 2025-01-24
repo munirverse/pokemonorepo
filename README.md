@@ -1,6 +1,9 @@
 <p align="center">
     <img src="https://raw.githubusercontent.com/munirverse/pokemonorepo/refs/heads/main/apps/pokemon-fe/public/logo.png" width="300">
 </p>
+<p align="center">
+    <img src="https://github.com/munirverse/pokemonorepo/blob/main/assets/pokemonorepo-screenshoot.gif?raw=true" width="500">
+</p>
 A full-stack pokédex project using Nx, NestJS, and Next.js
 
 - Web Demo: [https://pokemonorepo.munirverse.com](https://pokemonorepo.munirverse.com)
